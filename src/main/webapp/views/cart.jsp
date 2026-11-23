@@ -5,12 +5,12 @@
 <jsp:include page="/inc/toast.jsp"/>
 
 <main class="flex-1 max-w-[1360px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-10">
-    <div class="flex items-end justify-between gap-4 pb-5 mb-8 border-b-[1.5px] border-ink">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4 pb-5 mb-8 border-b-[1.5px] border-ink">
         <div>
             <h1 class="text-[28px] sm:text-[34px] font-extrabold tracking-tight text-ink">Giỏ hàng khóa học</h1>
             <p class="text-[14px] text-ink-muted mt-1">Mỗi khóa học Pro được kích hoạt sở hữu trọn đời sau khi thanh toán.</p>
         </div>
-        <a href="${pageContext.request.contextPath}/home#catalog" class="text-[13.5px] font-bold text-blueprint hover:underline inline-flex items-center gap-1">
+        <a href="${pageContext.request.contextPath}/home#catalog" class="text-[13.5px] font-bold text-blueprint hover:underline inline-flex items-center gap-1 shrink-0 self-start sm:self-auto">
             <i data-lucide="arrow-left" class="w-4 h-4"></i>
             <span>Tiếp tục xem khóa học</span>
         </a>
@@ -84,7 +84,8 @@
                 </div>
 
                 <!-- Summary & Coupon Box -->
-                <aside class="lg:col-span-4 binder-sheet rounded-xl p-6 space-y-5 lg:sticky lg:top-24">
+                <aside class="lg:col-span-4 lg:sticky lg:top-24">
+                    <div class="binder-sheet rounded-xl p-6 space-y-5">
                     <h2 class="text-[18px] font-extrabold text-ink pb-3 border-b border-rule">Tóm tắt đơn hàng</h2>
 
                     <!-- Coupon Form -->
@@ -92,11 +93,11 @@
                         <c:choose>
                             <c:when test="${not empty appliedCoupon}">
                                 <div class="flex items-center justify-between gap-2 p-3 rounded-lg bg-emerald-soft border border-emerald-ok/30">
-                                    <div class="text-[13px]">
+                                    <div class="text-[13px] min-w-0">
                                         <span class="font-mono font-bold text-emerald-ok">${appliedCoupon.code}</span>
-                                        <span class="text-ink font-semibold ml-1">(-${appliedCoupon.discountPercent}%)</span>
+                                        <span class="text-ink font-semibold ml-1">(-${appliedCoupon.discountPercent}%<c:if test="${appliedCoupon.hasMaxDiscount}">, tối đa ${appliedCoupon.formattedMaxDiscount}</c:if>)</span>
                                     </div>
-                                    <form action="${pageContext.request.contextPath}/cart" method="post">
+                                    <form action="${pageContext.request.contextPath}/cart" method="post" class="shrink-0">
                                         <input type="hidden" name="action" value="removeCoupon">
                                         <button type="submit" class="text-[12px] font-bold text-danger hover:underline">Gỡ mã</button>
                                     </form>
@@ -116,6 +117,7 @@
                                                 <input type="hidden" name="action" value="applyCoupon">
                                                 <input type="hidden" name="couponCode" value="${cp.code}">
                                                 <button type="submit"
+                                                        title="Giảm ${cp.discountPercent}%${cp.hasMaxDiscount ? ', tối đa '.concat(cp.formattedMaxDiscount) : ''}"
                                                         class="font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-paper border border-rule hover:border-ink text-ink-muted hover:text-ink transition-colors">
                                                     ${cp.code} (-${cp.discountPercent}%)
                                                 </button>
@@ -134,7 +136,7 @@
                             <dd class="font-mono font-semibold text-ink">${formattedSubtotal}</dd>
                         </div>
                         <div class="flex justify-between text-ink-muted">
-                            <dt>Giảm giá Coupon</dt>
+                            <dt>Giảm giá mã ưu đãi</dt>
                             <dd class="font-mono font-semibold text-emerald-ok">-${formattedDiscount}</dd>
                         </div>
                         <div class="flex justify-between items-baseline pt-3 border-t border-rule text-[16px]">
@@ -148,6 +150,7 @@
                         <i data-lucide="shield-check" class="w-4 h-4"></i>
                         <span>Tiến hành thanh toán</span>
                     </a>
+                    </div>
                 </aside>
             </div>
         </c:otherwise>

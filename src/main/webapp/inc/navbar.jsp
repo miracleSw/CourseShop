@@ -4,14 +4,15 @@
 <c:set var="cartSize" value="${not empty globalCartCount ? globalCartCount : (not empty sessionScope.cart ? fn:length(sessionScope.cart) : 0)}"/>
 
 <header x-data="{ mobileOpen: false, userMenu: false }"
+        @keydown.escape.window="mobileOpen = false; userMenu = false"
         class="sticky top-0 z-40 bg-paper-soft border-b-[1.5px] border-ink">
-    <div class="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-10 h-[66px] flex items-center justify-between gap-4">
+    <div class="max-w-[1360px] mx-auto px-3 sm:px-6 lg:px-10 h-[66px] flex items-center justify-between gap-2 sm:gap-4">
         <!-- Brand with Blueprint Spine Tab -->
         <a href="${pageContext.request.contextPath}/home"
-           class="flex items-center gap-2.5 shrink-0 group">
-            <span class="w-3 h-7 rounded-[3px] bg-blueprint block transition-transform duration-150 group-hover:scale-y-105" aria-hidden="true"></span>
-            <span class="font-extrabold text-[19px] tracking-tight text-ink">
-                CourseShop <span class="hidden sm:inline font-semibold text-ink-muted text-[15px]">· Engineering Lab</span>
+           class="flex items-center gap-2 sm:gap-2.5 shrink-0 group">
+            <span class="w-2.5 sm:w-3 h-6 sm:h-7 rounded-[3px] bg-blueprint block transition-transform duration-150 group-hover:scale-y-105" aria-hidden="true"></span>
+            <span class="font-extrabold text-[17px] sm:text-[19px] tracking-tight text-ink">
+                <c:out value="${not empty siteSettings['site.short_name'] ? siteSettings['site.short_name'] : 'CourseShop'}"/>
             </span>
         </a>
 
@@ -42,7 +43,7 @@
         </nav>
 
         <!-- Search + Cart + Auth -->
-        <div class="flex items-center gap-2.5 sm:gap-3.5">
+        <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
             <form action="${pageContext.request.contextPath}/home" method="get"
                   class="hidden md:flex items-center relative w-56 xl:w-64">
                 <i data-lucide="search" class="w-4 h-4 text-ink-subtle absolute left-3 pointer-events-none"></i>
@@ -53,7 +54,7 @@
             </form>
 
             <a href="${pageContext.request.contextPath}/cart"
-               class="relative inline-flex items-center gap-1.5 h-9 px-3 rounded-[5px] border-[1.5px] border-ink bg-sheet hover:bg-paper-tab text-[13px] font-bold text-ink transition-colors"
+               class="relative inline-flex items-center gap-1.5 h-9 px-2 sm:px-3 rounded-[5px] border-[1.5px] border-ink bg-sheet hover:bg-paper-tab text-[13px] font-bold text-ink transition-colors shrink-0"
                aria-label="Giỏ hàng">
                 <i data-lucide="shopping-bag" class="w-4 h-4"></i>
                 <span class="hidden sm:inline">Giỏ</span>
@@ -67,7 +68,7 @@
                 <c:when test="${not empty sessionScope.user}">
                     <div class="relative" @click.outside="userMenu = false">
                         <button type="button" @click="userMenu = !userMenu"
-                                class="inline-flex items-center gap-2 h-9 px-3 rounded-[5px] border-[1.5px] border-ink bg-ink text-paper-soft text-[13px] font-bold hover:bg-[#2B2F3A] transition-colors">
+                                class="inline-flex items-center gap-1.5 sm:gap-2 h-9 px-2 sm:px-3 rounded-[5px] border-[1.5px] border-ink bg-ink text-paper-soft text-[13px] font-bold hover:bg-[#2B2F3A] transition-colors">
                             <span class="w-5 h-5 rounded bg-blueprint text-white text-[11px] font-mono font-bold grid place-items-center">
                                 <c:out value="${sessionScope.user.initials}"/>
                             </span>
@@ -90,7 +91,7 @@
                                 <a href="${pageContext.request.contextPath}/admin/dashboard"
                                    class="flex items-center gap-2.5 px-3.5 py-2 text-[13px] font-semibold text-amber-pro hover:bg-amber-soft/50">
                                     <i data-lucide="shield-check" class="w-4 h-4"></i>
-                                    Trang Quản trị (Admin)
+                                    Trang Quản trị
                                 </a>
                             </c:if>
                             <div class="my-1 border-t border-rule"></div>
@@ -106,7 +107,7 @@
                 </c:when>
                 <c:otherwise>
                     <a href="${pageContext.request.contextPath}/login"
-                       class="btn-ink h-9 px-3 sm:px-4 text-[13px] whitespace-nowrap shrink-0">
+                       class="btn-ink h-9 px-2.5 sm:px-4 text-[12.5px] sm:text-[13px] whitespace-nowrap shrink-0">
                         Đăng nhập
                     </a>
                 </c:otherwise>
@@ -114,16 +115,19 @@
 
             <!-- Mobile menu button -->
             <button type="button" @click="mobileOpen = !mobileOpen"
-                    class="lg:hidden inline-flex items-center justify-center w-9 h-9 rounded-[5px] border-[1.5px] border-ink bg-sheet text-ink"
+                    :aria-expanded="mobileOpen"
+                    class="lg:hidden inline-flex items-center justify-center w-9 h-9 rounded-[5px] border-[1.5px] border-ink bg-sheet text-ink shrink-0"
                     aria-label="Mở menu điều hướng">
-                <i data-lucide="menu" class="w-4 h-4"></i>
+                <i data-lucide="menu" class="w-4 h-4" x-show="!mobileOpen"></i>
+                <i data-lucide="x" class="w-4 h-4" x-show="mobileOpen" x-cloak></i>
             </button>
         </div>
     </div>
 
     <!-- Mobile Navigation Drawer -->
     <div x-show="mobileOpen" x-cloak x-transition.opacity.duration.150ms
-         class="lg:hidden border-t-[1.5px] border-ink bg-paper-soft px-4 py-4 space-y-3">
+         @click.outside="mobileOpen = false"
+         class="lg:hidden border-t-[1.5px] border-ink bg-paper-soft px-4 py-4 space-y-3 shadow-lg">
         <form action="${pageContext.request.contextPath}/home" method="get" class="flex gap-2">
             <input type="search" name="q" value="<c:out value='${filterQ}'/>"
                    placeholder="Tìm khóa học Java, React, SQL..."

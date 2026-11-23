@@ -35,22 +35,25 @@ window.__TRACK_MAP__ = [
     <section class="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-10 pt-3 pb-4">
 
         <!-- Physical Top Binder Tabs (seams flush into white sheet below) -->
-        <div class="binder-tablist flex items-end gap-1.5 overflow-x-auto no-scrollbar" role="tablist" aria-label="Lộ trình học tập">
-            <c:forEach var="lp" items="${learningPaths}" varStatus="st">
-                <button type="button" role="tab"
-                        @click="selectTab(${st.index})"
-                        :data-active="activeTab === ${st.index}"
-                        :aria-selected="activeTab === ${st.index}"
-                        class="binder-tab shrink-0 px-4 sm:px-5 py-2 text-[13px] font-extrabold tracking-tight cursor-pointer">
-                    <span class="font-mono text-[12px] mr-1.5 text-ink-muted">${lp.code}</span>
-                    <span><c:out value="${lp.title}"/></span>
-                </button>
-            </c:forEach>
-            <a href="${pageContext.request.contextPath}/home?type=pro#catalog"
-               class="binder-tab shrink-0 px-4 sm:px-5 py-2 text-[13px] font-extrabold bg-amber-soft text-amber-ink border-b-ink hover:bg-[#FDE68A] inline-flex items-center gap-1.5">
-                <i data-lucide="award" class="w-3.5 h-3.5"></i>
-                <span>Khóa Pro Stripe &amp; AI</span>
-            </a>
+        <div class="relative">
+            <div class="binder-tablist flex items-end gap-1.5 overflow-x-auto no-scrollbar pr-8 lg:pr-0" role="tablist" aria-label="Lộ trình học tập">
+                <c:forEach var="lp" items="${learningPaths}" varStatus="st">
+                    <button type="button" role="tab"
+                            @click="selectTab(${st.index})"
+                            :data-active="activeTab === ${st.index}"
+                            :aria-selected="activeTab === ${st.index}"
+                            class="binder-tab shrink-0 px-3.5 sm:px-5 py-2 text-[12.5px] sm:text-[13px] font-extrabold tracking-tight cursor-pointer">
+                        <span class="font-mono text-[11.5px] sm:text-[12px] mr-1.5 text-ink-muted">${lp.code}</span>
+                        <span><c:out value="${lp.title}"/></span>
+                    </button>
+                </c:forEach>
+                <a href="${pageContext.request.contextPath}/home?type=pro#catalog"
+                   class="binder-tab shrink-0 px-3.5 sm:px-5 py-2 text-[12.5px] sm:text-[13px] font-extrabold bg-amber-soft text-amber-ink border-b-ink hover:bg-[#FDE68A] inline-flex items-center gap-1.5">
+                    <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                    <span>Khóa học Pro</span>
+                </a>
+            </div>
+            <div class="pointer-events-none lg:hidden absolute top-0 bottom-[1.5px] right-0 w-10 bg-gradient-to-l from-paper via-paper/80 to-transparent z-20" aria-hidden="true"></div>
         </div>
 
         <!-- Active White Binder Sheet -->
@@ -59,7 +62,7 @@ window.__TRACK_MAP__ = [
                 <!-- Left Thesis & Dual Actions -->
                 <div class="lg:col-span-7 space-y-3.5">
                     <h1 class="text-[28px] sm:text-[36px] lg:text-[40px] font-extrabold leading-[1.08] tracking-[-0.025em] text-ink text-balance">
-                        <c:out value="${not empty siteSettings['site.hero_title'] ? siteSettings['site.hero_title'] : 'Học theo giáo trình chuẩn Lab, code ra sản phẩm thật'}"/>
+                        <c:out value="${not empty siteSettings['site.hero_title'] ? siteSettings['site.hero_title'] : 'Học lập trình theo lộ trình bài bản, làm ra sản phẩm thật'}"/>
                     </h1>
                     <p class="text-[14.5px] leading-relaxed text-ink-muted max-w-[54ch]">
                         <c:out value="${siteSettings['site.hero_subtitle']}"/>
@@ -161,7 +164,7 @@ window.__TRACK_MAP__ = [
 
                 <div class="relative">
                     <select name="type" onchange="this.form.submit()" aria-label="Loại khóa học"
-                            class="lab-select appearance-none h-9 pl-3 pr-8 text-[13px] font-semibold bg-sheet border-[1.5px] border-ink rounded-[5px] text-ink cursor-pointer">
+                            class="lab-select appearance-none h-9 pl-3 pr-9 text-[13px] font-semibold bg-sheet border-[1.5px] border-ink rounded-[5px] text-ink cursor-pointer">
                         <option value="">Tất cả loại</option>
                         <option value="free" ${filterType == 'free' ? 'selected' : ''}>Miễn phí (0đ)</option>
                         <option value="pro" ${filterType == 'pro' ? 'selected' : ''}>Khóa học Pro</option>
@@ -171,7 +174,7 @@ window.__TRACK_MAP__ = [
 
                 <div class="relative">
                     <select name="category" onchange="this.form.submit()" aria-label="Danh mục"
-                            class="lab-select appearance-none h-9 pl-3 pr-8 text-[13px] font-semibold bg-sheet border-[1.5px] border-ink rounded-[5px] text-ink cursor-pointer">
+                            class="lab-select appearance-none h-9 pl-3 pr-9 text-[13px] font-semibold bg-sheet border-[1.5px] border-ink rounded-[5px] text-ink cursor-pointer">
                         <option value="">Tất cả chủ đề</option>
                         <c:forEach var="cat" items="${categories}">
                             <option value="${cat.id}" ${filterCategory == cat.id ? 'selected' : ''}>
@@ -184,7 +187,7 @@ window.__TRACK_MAP__ = [
 
                 <div class="relative">
                     <select name="level" onchange="this.form.submit()" aria-label="Trình độ"
-                            class="lab-select appearance-none h-9 pl-3 pr-8 text-[13px] font-semibold bg-sheet border-[1.5px] border-ink rounded-[5px] text-ink cursor-pointer">
+                            class="lab-select appearance-none h-9 pl-3 pr-9 text-[13px] font-semibold bg-sheet border-[1.5px] border-ink rounded-[5px] text-ink cursor-pointer">
                         <option value="">Mọi trình độ</option>
                         <option value="BEGINNER" ${filterLevel == 'BEGINNER' ? 'selected' : ''}>Người mới</option>
                         <option value="INTERMEDIATE" ${filterLevel == 'INTERMEDIATE' ? 'selected' : ''}>Trung cấp</option>
@@ -195,7 +198,7 @@ window.__TRACK_MAP__ = [
 
                 <div class="relative">
                     <select name="sort" onchange="this.form.submit()" aria-label="Sắp xếp"
-                            class="lab-select appearance-none h-9 pl-3 pr-8 text-[13px] font-semibold bg-sheet border-[1.5px] border-ink rounded-[5px] text-ink cursor-pointer">
+                            class="lab-select appearance-none h-9 pl-3 pr-9 text-[13px] font-semibold bg-sheet border-[1.5px] border-ink rounded-[5px] text-ink cursor-pointer">
                         <option value="">Mặc định</option>
                         <option value="popular" ${filterSort == 'popular' ? 'selected' : ''}>Phổ biến nhất</option>
                         <option value="price_asc" ${filterSort == 'price_asc' ? 'selected' : ''}>Giá tăng dần</option>

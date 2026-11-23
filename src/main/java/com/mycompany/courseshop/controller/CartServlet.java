@@ -162,7 +162,8 @@ public class CartServlet extends HttpServlet {
                     session.setAttribute("flashError", "Mã giảm giá không hợp lệ hoặc đã hết hạn.");
                 } else {
                     session.setAttribute("appliedCoupon", coupon);
-                    session.setAttribute("flashSuccess", "Đã áp dụng mã " + coupon.getCode() + " (giảm " + coupon.getDiscountPercent() + "%).");
+                    String capHint = coupon.isHasMaxDiscount() ? (", tối đa " + coupon.getFormattedMaxDiscount()) : "";
+                    session.setAttribute("flashSuccess", "Đã áp dụng mã " + coupon.getCode() + " (giảm " + coupon.getDiscountPercent() + "%" + capHint + ").");
                 }
                 resp.sendRedirect(req.getContextPath() + "/cart");
             }

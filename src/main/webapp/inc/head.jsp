@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><c:out value="${not empty pageTitle ? pageTitle : 'CourseShop — Giáo trình Lập trình Thực chiến'}"/></title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css?v=4">
+    <title><c:out value="${not empty pageTitle ? pageTitle : 'CourseShop — Khóa học Lập trình Thực chiến'}"/></title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css?v=5">
     <script src="${pageContext.request.contextPath}/assets/js/vendor/lucide.min.js" defer></script>
     <script src="${pageContext.request.contextPath}/assets/js/app.js?v=3" defer></script>
     <script src="${pageContext.request.contextPath}/assets/js/chat-widget.js?v=3" defer></script>

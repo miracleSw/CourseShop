@@ -38,6 +38,7 @@
         </section>
 
         <section class="lg:col-span-7 binder-sheet rounded-xl overflow-hidden">
+            <div class="overflow-x-auto">
             <table class="w-full text-left text-[13.5px] border-collapse">
                 <thead>
                     <tr class="bg-paper-soft border-b border-ink font-mono text-[11.5px] uppercase text-ink-muted">
@@ -67,6 +68,7 @@
                     </c:forEach>
                 </tbody>
             </table>
+            </div>
         </section>
     </div>
 </main>

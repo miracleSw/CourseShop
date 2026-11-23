@@ -2,7 +2,7 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
 <footer class="mt-auto border-t-[1.5px] border-ink bg-paper-soft">
-    <div class="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-10 py-12">
+    <div class="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-10 pt-12 pb-20 sm:pb-24">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-rule">
             <div class="md:col-span-5 space-y-3">
                 <a href="${pageContext.request.contextPath}/home" class="inline-flex items-center gap-2.5">

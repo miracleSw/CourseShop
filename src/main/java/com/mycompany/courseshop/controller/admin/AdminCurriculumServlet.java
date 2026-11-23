@@ -72,7 +72,8 @@ public class AdminCurriculumServlet extends HttpServlet {
                 default -> {}
             }
         } catch (SQLException e) {
-            req.getSession().setAttribute("flashError", "Lỗi thao tác giáo trình: " + e.getMessage());
+            e.printStackTrace();
+            req.getSession().setAttribute("flashError", "Không thể cập nhật giáo trình lúc này. Vui lòng thử lại.");
         }
         resp.sendRedirect(req.getContextPath() + "/admin/curriculum?courseId=" + courseId);
     }

@@ -49,7 +49,7 @@ public class AdminUserServlet extends HttpServlet {
             } else if ("toggleRole".equalsIgnoreCase(action)) {
                 String nextRole = "ADMIN".equalsIgnoreCase(req.getParameter("nextRole")) ? "ADMIN" : "USER";
                 userDAO.updateRole(targetId, nextRole);
-                req.getSession().setAttribute("flashSuccess", "Đã cập nhật quyền thành " + nextRole + ".");
+                req.getSession().setAttribute("flashSuccess", "Đã cập nhật vai trò thành " + ("ADMIN".equals(nextRole) ? "Quản trị viên" : "Học viên") + ".");
             }
         } catch (SQLException e) {
             req.getSession().setAttribute("flashError", "Lỗi cập nhật tài khoản.");

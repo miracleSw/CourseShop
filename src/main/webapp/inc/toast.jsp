@@ -26,7 +26,7 @@
      @cs-toast.window="add($event.detail.type, $event.detail.message)"
      data-flash-success="<c:out value='${flashSuccess}'/>"
      data-flash-error="<c:out value='${flashError}'/>"
-     class="fixed bottom-5 left-4 sm:left-5 z-50 flex flex-col gap-2.5 max-w-sm w-[calc(100vw-2rem)] sm:w-full pointer-events-none">
+     class="fixed bottom-[4.5rem] sm:bottom-5 left-4 sm:left-5 z-50 flex flex-col gap-2.5 max-w-sm w-[calc(100vw-2rem)] sm:w-full pointer-events-none">
     <template x-for="t in toasts" :key="t.id">
         <div x-transition:enter="transition ease-out duration-200"
              x-transition:enter-start="opacity-0 translate-y-2"

@@ -56,7 +56,8 @@ public class AdminCourseServlet extends HttpServlet {
                 courseDAO.deleteCourse(Integer.parseInt(req.getParameter("id")));
                 req.getSession().setAttribute("flashSuccess", "Đã xóa khóa học thành công.");
             } catch (Exception e) {
-                req.getSession().setAttribute("flashError", "Không thể xóa khóa học đang có đơn hàng liên kết. Bạn hãy chuyển trạng thái sang HIDDEN.");
+                e.printStackTrace();
+                req.getSession().setAttribute("flashError", "Không thể xóa khóa học đang có đơn hàng liên kết. Bạn hãy chuyển trạng thái sang Tạm ẩn.");
             }
             resp.sendRedirect(req.getContextPath() + "/admin/courses");
             return;
@@ -118,7 +119,8 @@ public class AdminCourseServlet extends HttpServlet {
                 req.getSession().setAttribute("flashSuccess", "Đã tạo khóa học mới \"" + c.getTitle() + "\".");
             }
         } catch (SQLException e) {
-            req.getSession().setAttribute("flashError", "Lỗi lưu khóa học (có thể trùng mã hoặc slug): " + e.getMessage());
+            e.printStackTrace();
+            req.getSession().setAttribute("flashError", "Không thể lưu khóa học. Vui lòng kiểm tra mã học phần không bị trùng.");
         }
         resp.sendRedirect(req.getContextPath() + "/admin/courses");
     }

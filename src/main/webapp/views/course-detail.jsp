@@ -251,13 +251,13 @@
 
                 <div class="p-6 space-y-5">
                     <!-- Price Block -->
-                    <div class="flex items-baseline gap-3 tabular-nums">
-                        <span class="text-[30px] font-extrabold leading-none ${course.free ? 'text-blueprint' : 'text-ink'}">
+                    <div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-1.5 tabular-nums">
+                        <span class="text-[26px] sm:text-[30px] font-extrabold leading-none ${course.free ? 'text-blueprint' : 'text-ink'}">
                             ${course.formattedEffectivePrice}
                         </span>
                         <c:if test="${course.hasDiscount}">
-                            <span class="text-[15px] text-ink-subtle line-through">${course.formattedPrice}</span>
-                            <span class="font-mono text-[12px] font-bold px-2 py-0.5 rounded bg-amber-soft text-amber-ink">
+                            <span class="text-[14px] sm:text-[15px] text-ink-subtle line-through">${course.formattedPrice}</span>
+                            <span class="font-mono text-[12px] font-bold px-2 py-0.5 rounded bg-amber-soft text-amber-ink shrink-0">
                                 -${course.discountPercent}%
                             </span>
                         </c:if>
@@ -278,7 +278,7 @@
                                     <input type="hidden" name="courseId" value="${course.id}">
                                     <button type="submit" class="btn-blueprint w-full py-3 text-[15px]">
                                         <i data-lucide="check-circle" class="w-4 h-4"></i>
-                                        <span>Đăng ký miễn phí 1-click</span>
+                                        <span>Đăng ký học miễn phí</span>
                                     </button>
                                 </form>
                             </c:when>
@@ -289,7 +289,7 @@
                                     <input type="hidden" name="buyNow" value="1">
                                     <button type="submit" class="btn-pro w-full py-3 text-[15px]">
                                         <i data-lucide="credit-card" class="w-4 h-4"></i>
-                                        <span>Mua ngay qua Stripe</span>
+                                        <span>Mua ngay</span>
                                     </button>
                                 </form>
 
@@ -325,7 +325,7 @@
                         </li>
                         <li class="flex items-center gap-2.5">
                             <i data-lucide="sparkles" class="w-4 h-4 text-ink shrink-0"></i>
-                            <span>Trợ giảng AI Gemini giải đáp bài học 24/7</span>
+                            <span>Trợ giảng AI giải đáp bài học 24/7</span>
                         </li>
                         <c:if test="${course.pro && not empty activeCoupons}">
                             <li class="flex items-start gap-2.5">

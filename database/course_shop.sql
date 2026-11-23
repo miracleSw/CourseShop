@@ -328,7 +328,7 @@ INSERT INTO `courses`
 -- 8 PRO PAID COURSES
 (5, 3, 'PRO-01', 'Java Web Jakarta EE 10, MVC & Thanh toán Stripe', 'java-web-jakarta-ee-stripe-pro',
  'Xây dựng hoàn chỉnh hệ thống E-Commerce & E-Learning bằng Servlet, JSP/JSTL, JDBC Transaction và cổng Stripe Checkout.',
- 'Khóa học Pro trọng tâm giúp bạn hiểu bản chất Web Server (Tomcat 10.1), vòng đời Servlet/Filter, phân quyền RBAC, băm mật khẩu PBKDF2, upload ảnh `@MultipartConfig` và tích hợp Stripe Checkout API qua Java HttpClient.',
+ 'Khóa học Pro trọng tâm giúp bạn hiểu bản chất Web Server (Tomcat 10.1), vòng đời Servlet/Filter, phân quyền RBAC, băm mật khẩu PBKDF2, upload ảnh @MultipartConfig và tích hợp Stripe Checkout API qua Java HttpClient.',
  'Thiết kế kiến trúc MVC + DAO sạch sẽ, không rò rỉ Connection\nCài đặt xác thực mật khẩu PBKDF2 và phân quyền AuthFilter/AdminFilter\nTích hợp thanh toán Stripe Checkout Session & xác minh phía Server\nHoàn thiện đồ án thương mại điện tử sẵn sàng bảo vệ và đưa vào CV',
  'KS. Nguyễn Hoàng Nam', 'assets/images/courses/pro-01.png', 1990000, 1290000, 1, 'INTERMEDIATE', 'PUBLISHED'),
 
@@ -339,8 +339,8 @@ INSERT INTO `courses`
  'KS. Nguyễn Hoàng Nam', 'assets/images/courses/pro-02.png', 2290000, 1490000, 1, 'INTERMEDIATE', 'PUBLISHED'),
 
 (7, 1, 'PRO-03', 'Tailwind CSS v4, Alpine.js & Thiết kế UI Production', 'tailwind-v4-alpine-ui-production-pro',
- 'Tạm biệt template Bootstrap mặc định: xây dựng Design System tùy biến bằng Tailwind v4 `@theme` và tương tác mượt với Alpine.js.',
- 'Dành cho lập trình viên muốn sản phẩm của mình có thẩm mỹ đạt chuẩn xuất bản. Học cách chọn bảng màu đạt chuẩn WCAG AA, hệ chữ tiếng Việt sắc nét, bảng dữ liệu `tabular-nums` và micro-interaction tinh tế.',
+ 'Tạm biệt template Bootstrap mặc định: xây dựng Design System tùy biến bằng Tailwind v4 @theme và tương tác mượt với Alpine.js.',
+ 'Dành cho lập trình viên muốn sản phẩm của mình có thẩm mỹ đạt chuẩn xuất bản. Học cách chọn bảng màu đạt chuẩn WCAG AA, hệ chữ tiếng Việt sắc nét, bảng dữ liệu thẳng hàng số liệu và micro-interaction tinh tế.',
  'Xây dựng Design Tokens chuẩn hóa với Tailwind CSS v4 @theme\nThiết kế layout phức tạp: Dashboard, Video Player, Drawer, Modal\nKết hợp Alpine.js 3 cho trang Server-Rendered (JSP/Thymeleaf)\nKiểm định Responsive và Accessibility trên mọi khung hình',
  'ThS. Phạm Minh Quân', 'assets/images/courses/pro-03.png', 1490000, 990000, 1, 'INTERMEDIATE', 'PUBLISHED'),
 
@@ -520,11 +520,11 @@ INSERT INTO `reviews` (`user_id`, `course_id`, `rating`, `comment`, `created_at`
 
 -- DEFAULT APP SETTINGS (100% stored in MySQL & editable in /admin/settings)
 INSERT INTO `app_settings` (`setting_key`, `setting_value`) VALUES
-('site.name', 'CourseShop · Engineering Lab'),
+('site.name', 'CourseShop'),
 ('site.short_name', 'CourseShop'),
-('site.tagline', 'Nền tảng học lập trình theo lộ trình kỹ sư thực chiến dành cho sinh viên CNTT và người mới chuyển ngành. Bắt đầu từ giáo trình miễn phí 0đ, tiến tới dự án thương mại chuẩn production.'),
-('site.hero_title', 'Học theo giáo trình chuẩn Lab, code ra sản phẩm thật'),
-('site.hero_subtitle', 'Lộ trình lập trình cho sinh viên CNTT và người mới chuyển ngành: bắt đầu với các khóa nền tảng miễn phí 0đ, sau đó bước lên dự án Java Web tích hợp Stripe & Trợ giảng AI.'),
+('site.tagline', 'Nền tảng học lập trình thực chiến theo lộ trình dành cho sinh viên CNTT và người mới chuyển ngành. Bắt đầu từ giáo trình miễn phí 0đ, tiến tới xây dựng dự án hoàn chỉnh.'),
+('site.hero_title', 'Học lập trình theo lộ trình bài bản, làm ra sản phẩm thật'),
+('site.hero_subtitle', 'Lộ trình lập trình dành cho sinh viên CNTT và người mới chuyển ngành: bắt đầu với các khóa nền tảng miễn phí 0đ, sau đó thực hành dự án thực tế cùng Trợ giảng AI.'),
 ('site.support_email', 'support@courseshop.vn'),
 ('site.hotline', '1900 6868'),
 ('site.address', 'Tầng 6, Khu Công nghệ phần mềm, Hà Nội'),

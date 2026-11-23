@@ -56,7 +56,8 @@ public class AdminOrderServlet extends HttpServlet {
                 req.getSession().setAttribute("flashSuccess", "Đã hủy đơn hàng.");
             }
         } catch (SQLException e) {
-            req.getSession().setAttribute("flashError", "Lỗi cập nhật đơn hàng: " + e.getMessage());
+            e.printStackTrace();
+            req.getSession().setAttribute("flashError", "Không thể cập nhật trạng thái đơn hàng lúc này. Vui lòng thử lại.");
         }
         resp.sendRedirect(req.getContextPath() + "/admin/orders");
     }

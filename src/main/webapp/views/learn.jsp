@@ -33,26 +33,28 @@ window.__INITIAL_NOTES__ = [
         percent: ${progressPercent},
         initialNotes: window.__INITIAL_NOTES__
      })"
+     @keydown.escape.window="if (window.innerWidth < 1024) sidebarOpen = false"
      class="h-screen flex flex-col">
 
-    <!-- Dark Top Header (Operate Mode — F8 inspired) -->
-    <header class="h-14 bg-theatre text-[#F4F6F9] border-b border-theatre-border px-4 flex items-center justify-between gap-4 shrink-0">
-        <div class="flex items-center gap-3 min-w-0">
+    <!-- Dark Top Header -->
+    <header class="h-14 bg-theatre text-[#F4F6F9] border-b border-theatre-border px-3 sm:px-4 flex items-center justify-between gap-2 sm:gap-4 shrink-0">
+        <div class="flex items-center gap-2 sm:gap-3 min-w-0">
             <a href="${pageContext.request.contextPath}/my-courses"
                class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-theatre-panel border border-theatre-border hover:border-[#4A5568] text-[13px] font-semibold shrink-0">
                 <i data-lucide="chevron-left" class="w-4 h-4"></i>
                 <span class="hidden sm:inline">Khóa của tôi</span>
             </a>
             <div class="min-w-0">
-                <div class="font-bold text-[14.5px] truncate">
+                <div class="font-bold text-[14px] sm:text-[14.5px] truncate">
                     <span class="font-mono text-[#93C5FD] mr-1.5">${course.code}</span>
                     <c:out value="${course.title}"/>
                 </div>
             </div>
         </div>
 
-        <div class="flex items-center gap-4 shrink-0">
+        <div class="flex items-center gap-2 sm:gap-4 shrink-0">
             <!-- Progress Indicator -->
+            <span class="md:hidden font-mono text-[11.5px] font-bold text-[#86EFAC] tabular-nums" x-text="percent + '%'"></span>
             <div class="hidden md:flex items-center gap-3 font-mono text-[12px] tabular-nums">
                 <div class="w-28 h-2 bg-theatre-panel rounded-full overflow-hidden border border-theatre-border">
                     <div class="h-full bg-[#22C55E] transition-all duration-300" :style="'width:' + percent + '%'"></div>
@@ -206,6 +208,13 @@ window.__INITIAL_NOTES__ = [
             </c:choose>
         </div>
 
+        <!-- Mobile Drawer Backdrop -->
+        <div x-show="sidebarOpen" x-cloak
+             x-transition.opacity.duration.150ms
+             @click="sidebarOpen = false"
+             class="fixed inset-0 bg-ink/50 z-20 lg:hidden"
+             aria-hidden="true"></div>
+
         <!-- Right Collapsible Syllabus Sidebar -->
         <aside x-show="sidebarOpen" x-cloak
                class="w-[340px] max-w-[85vw] bg-sheet border-l-[1.5px] border-ink flex flex-col shrink-0 overflow-hidden absolute lg:static inset-y-0 right-0 z-30 shadow-2xl lg:shadow-none">
@@ -247,8 +256,8 @@ window.__INITIAL_NOTES__ = [
         </aside>
     </div>
 
-    <!-- F8-style Sticky Bottom Lesson Navigation Bar -->
-    <footer class="h-14 bg-paper-soft border-t-[1.5px] border-ink px-4 flex items-center justify-center gap-3 shrink-0 z-20">
+    <!-- Sticky Bottom Lesson Navigation Bar -->
+    <footer class="h-14 bg-paper-soft border-t-[1.5px] border-ink pl-3 pr-16 sm:px-4 flex items-center justify-start sm:justify-center gap-2.5 sm:gap-3 shrink-0 z-20">
         <c:choose>
             <c:when test="${not empty prevLesson}">
                 <a href="${pageContext.request.contextPath}/learn?courseId=${course.id}&lessonId=${prevLesson.id}"

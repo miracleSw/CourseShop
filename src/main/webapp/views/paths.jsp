@@ -25,7 +25,7 @@
                         </h2>
                         <p class="text-[14px] text-ink-muted mt-1 max-w-3xl"><c:out value="${lp.summary}"/></p>
                     </div>
-                    <div class="shrink-0 font-mono text-[12px] font-bold px-3 py-1.5 rounded border border-ink bg-sheet text-ink">
+                    <div class="self-start sm:self-center shrink-0 font-mono text-[11.5px] sm:text-[12px] font-bold px-3 py-1.5 rounded border border-ink bg-sheet text-ink">
                         <c:out value="${lp.targetRole}"/> · ${lp.courses.size()} học phần
                     </div>
                 </div>

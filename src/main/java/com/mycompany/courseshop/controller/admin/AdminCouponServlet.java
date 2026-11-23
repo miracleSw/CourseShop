@@ -64,9 +64,11 @@ public class AdminCouponServlet extends HttpServlet {
                 }
             }
         } catch (SQLException e) {
-            req.getSession().setAttribute("flashError", "Lỗi lưu mã giảm giá (có thể trùng mã hoặc đang gắn đơn hàng): " + e.getMessage());
+            e.printStackTrace();
+            req.getSession().setAttribute("flashError", "Không thể lưu mã giảm giá (có thể trùng mã hoặc đang gắn đơn hàng).");
         } catch (Exception e) {
-            req.getSession().setAttribute("flashError", "Dữ liệu không hợp lệ: " + e.getMessage());
+            e.printStackTrace();
+            req.getSession().setAttribute("flashError", "Dữ liệu mã giảm giá không hợp lệ. Vui lòng kiểm tra lại.");
         }
         resp.sendRedirect(req.getContextPath() + "/admin/coupons");
     }

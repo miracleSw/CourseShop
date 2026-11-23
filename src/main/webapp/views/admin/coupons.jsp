@@ -17,7 +17,7 @@
         <h2 class="text-[16px] font-extrabold text-ink mb-4">Tạo mã giảm giá mới</h2>
         <form action="${pageContext.request.contextPath}/admin/coupons" method="post" class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
             <div class="md:col-span-2">
-                <label class="block text-[13px] font-bold mb-1">Mã Coupon</label>
+                <label class="block text-[13px] font-bold mb-1">Mã ưu đãi</label>
                 <input type="text" name="code" required placeholder="VD: SUMMER25" class="lab-input font-mono uppercase">
             </div>
             <div class="md:col-span-2">
@@ -77,7 +77,7 @@
                                     <input type="hidden" name="action" value="updateStripeId">
                                     <input type="hidden" name="id" value="${cp.id}">
                                     <input type="text" name="stripeCouponId" value="<c:out value='${cp.stripeCouponId}'/>"
-                                           placeholder="Auto khớp theo mã" class="lab-input font-mono text-[12px] py-1 px-2">
+                                           placeholder="Tự động khớp theo mã" class="lab-input font-mono text-[12px] py-1 px-2">
                                     <button type="submit" class="btn-outline-ink px-2.5 py-1 text-[12px] shrink-0">Lưu</button>
                                 </form>
                             </td>

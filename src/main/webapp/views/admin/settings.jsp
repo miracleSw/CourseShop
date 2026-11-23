@@ -24,7 +24,7 @@
                         <p class="text-[13px] text-ink-muted mt-0.5">Tư vấn lộ trình học và giải đáp câu hỏi trong phòng học.</p>
                     </div>
                     <span class="shrink-0 font-mono text-[11px] font-bold px-2.5 py-1 rounded ${hasGeminiKey ? 'bg-emerald-soft text-emerald-ok' : 'bg-danger-soft text-danger'}">
-                        ${hasGeminiKey ? (geminiFromEnv ? 'ĐÃ KẾT NỐI · ENV' : 'ĐÃ KẾT NỐI') : 'CHƯA KÍCH HOẠT'}
+                        ${hasGeminiKey ? (geminiFromEnv ? 'ĐÃ KẾT NỐI · MÁY CHỦ' : 'ĐÃ KẾT NỐI') : 'CHƯA KÍCH HOẠT'}
                     </span>
                 </div>
 
@@ -48,7 +48,7 @@
                         </label>
                         <input id="geminiApiKey" type="password" name="geminiApiKey" autocomplete="off"
                                ${geminiFromEnv ? 'disabled' : ''}
-                               placeholder="${geminiFromEnv ? 'Đang nạp từ biến môi trường GEMINI_API_KEY' : (hasGeminiKey ? 'Để trống nếu giữ nguyên khóa hiện tại' : 'Nhập khóa kết nối Gemini')}"
+                               placeholder="${geminiFromEnv ? 'Đã cấu hình an toàn trên máy chủ' : (hasGeminiKey ? 'Để trống nếu giữ nguyên khóa hiện tại' : 'Nhập khóa kết nối Gemini')}"
                                class="lab-input font-mono text-[13.5px] disabled:bg-paper disabled:opacity-70">
                     </div>
 
@@ -83,7 +83,7 @@
                         <p class="text-[13px] text-ink-muted mt-0.5">Ưu tiên nạp khóa từ biến môi trường máy chủ và xác thực chữ ký Webhook.</p>
                     </div>
                     <span class="shrink-0 font-mono text-[11px] font-bold px-2.5 py-1 rounded ${hasStripeSk ? 'bg-emerald-soft text-emerald-ok' : 'bg-danger-soft text-danger'}">
-                        ${hasStripeSk ? (stripeFromEnv ? 'SẴN SÀNG · ENV' : 'SẴN SÀNG') : 'CHƯA KÍCH HOẠT'}
+                        ${hasStripeSk ? (stripeFromEnv ? 'SẴN SÀNG · MÁY CHỦ' : 'SẴN SÀNG') : 'CHƯA KÍCH HOẠT'}
                     </span>
                 </div>
 
@@ -97,7 +97,7 @@
                         </label>
                         <input id="stripeSecretKey" type="password" name="stripeSecretKey" autocomplete="off"
                                ${stripeFromEnv ? 'disabled' : ''}
-                               placeholder="${stripeFromEnv ? 'Đang nạp từ biến môi trường STRIPE_SECRET_KEY' : (hasStripeSk ? 'Để trống nếu giữ nguyên khóa hiện tại' : 'Nhập Stripe Secret Key')}"
+                               placeholder="${stripeFromEnv ? 'Đã cấu hình an toàn trên máy chủ' : (hasStripeSk ? 'Để trống nếu giữ nguyên khóa hiện tại' : 'Nhập Stripe Secret Key')}"
                                class="lab-input font-mono text-[13.5px] disabled:bg-paper disabled:opacity-70">
                     </div>
 
@@ -110,7 +110,7 @@
                         </label>
                         <input id="stripeWebhookSecret" type="password" name="stripeWebhookSecret" autocomplete="off"
                                ${webhookFromEnv ? 'disabled' : ''}
-                               placeholder="${webhookFromEnv ? 'Đang nạp từ biến môi trường STRIPE_WEBHOOK_SECRET' : (hasStripeWh ? 'Để trống nếu giữ nguyên khóa hiện tại' : 'Nhập Stripe Webhook Secret')}"
+                               placeholder="${webhookFromEnv ? 'Đã cấu hình an toàn trên máy chủ' : (hasStripeWh ? 'Để trống nếu giữ nguyên khóa hiện tại' : 'Nhập Stripe Webhook Secret')}"
                                class="lab-input font-mono text-[13.5px] disabled:bg-paper disabled:opacity-70">
                     </div>
 

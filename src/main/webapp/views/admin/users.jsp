@@ -8,7 +8,7 @@
 <main class="flex-1 p-5 sm:p-8 lg:p-10 min-w-0 space-y-6">
     <div class="pb-4 border-b-[1.5px] border-ink">
         <h1 class="text-[26px] sm:text-[32px] font-extrabold tracking-tight text-ink">Quản lý Người dùng</h1>
-        <p class="text-[14px] text-ink-muted mt-1">Xem danh sách tài khoản, phân quyền Admin/Học viên và khóa tạm thời khi cần.</p>
+        <p class="text-[14px] text-ink-muted mt-1">Xem danh sách tài khoản, phân quyền Quản trị/Học viên và khóa tạm thời khi cần.</p>
     </div>
 
     <section class="binder-sheet rounded-xl overflow-hidden">

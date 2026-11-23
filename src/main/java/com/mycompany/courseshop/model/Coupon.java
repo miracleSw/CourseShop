@@ -1,5 +1,6 @@
 package com.mycompany.courseshop.model;
 
+import com.mycompany.courseshop.utils.FormatUtil;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
@@ -43,6 +44,14 @@ public class Coupon {
 
     public String getStripeCouponId() { return stripeCouponId; }
     public void setStripeCouponId(String stripeCouponId) { this.stripeCouponId = stripeCouponId; }
+
+    public boolean isHasMaxDiscount() {
+        return maxDiscount != null && maxDiscount.compareTo(BigDecimal.ZERO) > 0;
+    }
+
+    public String getFormattedMaxDiscount() {
+        return isHasMaxDiscount() ? FormatUtil.formatVnd(maxDiscount) : "";
+    }
 
     public boolean isValidNow() {
         if (!status) return false;
