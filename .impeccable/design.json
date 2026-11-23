@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-23T00:20:00+07:00",
+  "title": "Design System: CourseShop Engineering Lab",
+  "extensions": {
+    "colorMeta": {
+      "blueprint": {
+        "role": "primary",
+        "displayName": "Blueprint Indigo",
+        "canonical": "#23469E",
+        "tonalRamp": ["#0D1B3F", "#152B63", "#1B377E", "#23469E", "#3B62C4", "#7092E0", "#B7CCF4", "#E6EEFC"]
+      },
+      "blueprint-hover": {
+        "role": "primary",
+        "displayName": "Deep Blueprint",
+        "canonical": "#1B377E",
+        "tonalRamp": ["#0A1533", "#122452", "#1B377E", "#25489E", "#4165BC", "#7896DA", "#BACCF2", "#E8EFFC"]
+      },
+      "blueprint-soft": {
+        "role": "primary",
+        "displayName": "Blueprint Wash",
+        "canonical": "#E6EEFC",
+        "tonalRamp": ["#16274D", "#233C73", "#365699", "#5477BF", "#7E9EDC", "#AEC4EE", "#D2E0F9", "#E6EEFC"]
+      },
+      "amber-pro": {
+        "role": "secondary",
+        "displayName": "Safety Amber Pro",
+        "canonical": "#B45309",
+        "tonalRamp": ["#451A03", "#6B2D07", "#92400E", "#B45309", "#D97706", "#F59E0B", "#FCD34D", "#FEF3C7"]
+      },
+      "amber-pro-hover": {
+        "role": "secondary",
+        "displayName": "Burnished Amber Hover",
+        "canonical": "#92400E",
+        "tonalRamp": ["#3B1603", "#5E2607", "#78350F", "#92400E", "#B45309", "#D97706", "#FBBF24", "#FEF3C7"]
+      },
+      "amber-bar": {
+        "role": "secondary",
+        "displayName": "Signal Amber Bar",
+        "canonical": "#D97706",
+        "tonalRamp": ["#451A03", "#78350F", "#92400E", "#B45309", "#D97706", "#F59E0B", "#FCD34D", "#FEF3C7"]
+      },
+      "amber-soft": {
+        "role": "secondary",
+        "displayName": "Parchment Amber Tint",
+        "canonical": "#FEF3C7",
+        "tonalRamp": ["#451A03", "#78350F", "#B45309", "#D97706", "#F59E0B", "#FBBF24", "#FDE68A", "#FEF3C7"]
+      },
+      "amber-ink": {
+        "role": "secondary",
+        "displayName": "Espresso Amber Ink",
+        "canonical": "#78350F",
+        "tonalRamp": ["#2D1103", "#4F2007", "#78350F", "#92400E", "#B45309", "#D97706", "#F59E0B", "#FEF3C7"]
+      },
+      "emerald-ok": {
+        "role": "tertiary",
+        "displayName": "Lab Emerald",
+        "canonical": "#15803D",
+        "tonalRamp": ["#052E16", "#0D4F26", "#14532D", "#15803D", "#16A34A", "#4ADE80", "#BBF7D0", "#DCFCE7"]
+      },
+      "emerald-soft": {
+        "role": "tertiary",
+        "displayName": "Emerald Wash",
+        "canonical": "#DCFCE7",
+        "tonalRamp": ["#052E16", "#14532D", "#15803D", "#22C55E", "#4ADE80", "#86EFAC", "#BBF7D0", "#DCFCE7"]
+      },
+      "danger": {
+        "role": "tertiary",
+        "displayName": "Signal Crimson",
+        "canonical": "#B91C1C",
+        "tonalRamp": ["#450A0A", "#7F1D1D", "#991B1B", "#B91C1C", "#DC2626", "#F87171", "#FECACA", "#FEE2E2"]
+      },
+      "danger-soft": {
+        "role": "tertiary",
+        "displayName": "Crimson Wash",
+        "canonical": "#FEE2E2",
+        "tonalRamp": ["#450A0A", "#7F1D1D", "#B91C1C", "#EF4444", "#F87171", "#FCA5A5", "#FECACA", "#FEE2E2"]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Limestone Paper",
+        "canonical": "#F4F1EA",
+        "tonalRamp": ["#2C2A24", "#4A463D", "#6F6A5E", "#969081", "#BEB8AA", "#D6D1C4", "#EAE5DA", "#F4F1EA"]
+      },
+      "paper-soft": {
+        "role": "neutral",
+        "displayName": "Soft Paper",
+        "canonical": "#FAF8F3",
+        "tonalRamp": ["#302E29", "#524E46", "#787368", "#A19B8F", "#C7C2B6", "#E2DDD2", "#F4F1EA", "#FAF8F3"]
+      },
+      "paper-tab": {
+        "role": "neutral",
+        "displayName": "Binder Tab Putty",
+        "canonical": "#EAE5DA",
+        "tonalRamp": ["#282620", "#454138", "#686256", "#8E8778", "#B5AEA0", "#D1CABC", "#E0DACD", "#EAE5DA"]
+      },
+      "sheet": {
+        "role": "neutral",
+        "displayName": "Crisp Sheet",
+        "canonical": "#FFFFFF",
+        "tonalRamp": ["#16181D", "#3B3F4A", "#646976", "#8E93A0", "#B8BCC6", "#D9DCE3", "#F1F3F6", "#FFFFFF"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Carbon Ink",
+        "canonical": "#16181D",
+        "tonalRamp": ["#0D0E12", "#16181D", "#282C35", "#404552", "#616775", "#8B91A0", "#C0C4CF", "#ECEEF2"]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Graphite Muted",
+        "canonical": "#4A4E57",
+        "tonalRamp": ["#191B1F", "#2E3138", "#4A4E57", "#646974", "#848996", "#A9AEB9", "#CFD3DC", "#ECEEF2"]
+      },
+      "ink-subtle": {
+        "role": "neutral",
+        "displayName": "Slate Subtle",
+        "canonical": "#5C616B",
+        "tonalRamp": ["#1F2126", "#373B42", "#5C616B", "#747A86", "#9398A4", "#B5B9C3", "#D6D9E0", "#EFF1F4"]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Warm Rule",
+        "canonical": "#D6D1C4",
+        "tonalRamp": ["#2A2823", "#49453D", "#6C675C", "#918B7D", "#B3AD9E", "#C8C2B4", "#D6D1C4", "#EFECE4"]
+      },
+      "theatre": {
+        "role": "neutral",
+        "displayName": "Theatre Charcoal",
+        "canonical": "#11151B",
+        "tonalRamp": ["#090B0E", "#11151B", "#191F28", "#2B3340", "#455063", "#6B788E", "#A4B0C2", "#E2E8F0"]
+      },
+      "theatre-panel": {
+        "role": "neutral",
+        "displayName": "Theatre Panel",
+        "canonical": "#191F28",
+        "tonalRamp": ["#0B0E13", "#191F28", "#252D3A", "#374254", "#526077", "#7A889E", "#B2BCCE", "#E5EAF1"]
+      },
+      "theatre-border": {
+        "role": "neutral",
+        "displayName": "Theatre Rule",
+        "canonical": "#2B3340",
+        "tonalRamp": ["#10141A", "#1C222C", "#2B3340", "#3F4A5C", "#5B687E", "#8390A6", "#B7C1D1", "#E7EBF2"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Storefront hero thesis headline inside the active binder sheet." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles, catalog header, checkout and admin page headers." },
+      "title": { "displayName": "Title", "purpose": "Course card titles, syllabus section headings, and panel titles." },
+      "body": { "displayName": "Body", "purpose": "Descriptions, lesson overviews, and student timestamp notes (54-70ch)." },
+      "label": { "displayName": "Label", "purpose": "Navigation links, binder tab labels, form labels, and button text." },
+      "mono": { "displayName": "Mono Metadata", "purpose": "Course IDs (LAB-01, PRO-02), VND prices, timestamps, and KPI counts." }
+    },
+    "shadows": [
+      { "name": "sheet-rest", "value": "0 10px 28px -18px rgba(22, 24, 29, 0.22)", "purpose": "Subtle grounding under .binder-sheet containers." },
+      { "name": "card-hover", "value": "0 14px 28px -16px rgba(22, 24, 29, 0.28)", "purpose": "Tactile elevation on .course-card hover alongside translateY(-2px)." },
+      { "name": "floating-surface", "value": "0 25px 50px -12px rgba(22, 24, 29, 0.25)", "purpose": "AI chat drawer, video preview modal, toast notices, and mobile drawers." },
+      { "name": "focus-blueprint", "value": "0 0 0 3px rgba(35, 70, 158, 0.16)", "purpose": "Keyboard and input focus halo on lab form fields." }
+    ],
+    "motion": [
+      { "name": "ease-lab", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Primary mechanical deceleration curve for binder reveals and card lift." },
+      { "name": "sheet-reveal", "value": "240ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Subtle opacity and 4px rise when switching binder tabs." },
+      { "name": "card-lift", "value": "220ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Hover translation and shadow shift on course cards." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Blueprint Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary action for 0đ Free foundation enrollment, form saves, and lesson progression.",
+      "html": "<button type=\"button\" class=\"ds-btn-blueprint\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><polygon points=\"10 8 16 12 10 16 10 8\"/></svg><span>Học miễn phí ngay (0đ)</span></button>",
+      "css": ".ds-btn-blueprint { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--color-blueprint, #23469E); color: #FFFFFF; border: 1.5px solid var(--color-blueprint, #23469E); border-radius: 6px; padding: 10px 16px; font-family: \"Be Vietnam Pro\", sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: background-color 160ms ease, border-color 160ms ease; } .ds-btn-blueprint:hover { background: var(--color-blueprint-hover, #1B377E); border-color: var(--color-blueprint-hover, #1B377E); } .ds-btn-blueprint:focus-visible { outline: 2px solid #23469E; outline-offset: 2px; }"
+    },
+    {
+      "name": "Pro Amber Button",
+      "kind": "button",
+      "refersTo": "button-pro",
+      "description": "Commercial Pro track action and Stripe checkout confirmation button meeting WCAG AA contrast.",
+      "html": "<button type=\"button\" class=\"ds-btn-pro\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"12 2 2 7 12 12 22 7 12 2\"/><polyline points=\"2 17 12 22 22 17\"/><polyline points=\"2 12 12 17 22 12\"/></svg><span>Xem giáo trình Pro</span></button>",
+      "css": ".ds-btn-pro { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--color-amber-pro, #B45309); color: #FFFFFF; border: 1.5px solid var(--color-amber-pro, #B45309); border-radius: 6px; padding: 10px 16px; font-family: \"Be Vietnam Pro\", sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: background-color 160ms ease, border-color 160ms ease; } .ds-btn-pro:hover { background: var(--color-amber-pro-hover, #92400E); border-color: var(--color-amber-pro-hover, #92400E); } .ds-btn-pro:focus-visible { outline: 2px solid #23469E; outline-offset: 2px; }"
+    },
+    {
+      "name": "Carbon Ink Button",
+      "kind": "button",
+      "refersTo": "button-ink",
+      "description": "High-contrast dark button for authentication entry and card add-to-cart actions.",
+      "html": "<button type=\"button\" class=\"ds-btn-ink\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\"/><line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"/></svg><span>Giỏ hàng</span></button>",
+      "css": ".ds-btn-ink { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: var(--color-ink, #16181D); color: var(--color-paper-soft, #FAF8F3); border: 1.5px solid var(--color-ink, #16181D); border-radius: 6px; padding: 7px 12px; font-family: \"Be Vietnam Pro\", sans-serif; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: background-color 160ms ease; } .ds-btn-ink:hover { background: #2B2F3A; } .ds-btn-ink:focus-visible { outline: 2px solid #23469E; outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Paper Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary framed paper control used for Free course quick-enroll and lesson navigation.",
+      "html": "<button type=\"button\" class=\"ds-btn-outline\"><span>Học ngay</span></button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: var(--color-paper-soft, #FAF8F3); color: var(--color-ink, #16181D); border: 1.5px solid var(--color-ink, #16181D); border-radius: 6px; padding: 7px 14px; font-family: \"Be Vietnam Pro\", sans-serif; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: background-color 160ms ease; } .ds-btn-outline:hover { background: var(--color-paper-tab, #EAE5DA); } .ds-btn-outline:focus-visible { outline: 2px solid #23469E; outline-offset: 2px; }"
+    },
+    {
+      "name": "Lab Form Input & Custom Select",
+      "kind": "input",
+      "refersTo": "input-lab",
+      "description": "Ink-bordered crisp white text field and chevron-styled select filter with blueprint focus halo.",
+      "html": "<div class=\"ds-field-row\"><input type=\"text\" class=\"ds-lab-input\" placeholder=\"Tìm Java, React, SQL...\" /><div class=\"ds-select-wrap\"><select class=\"ds-lab-select\"><option>Tất cả loại</option><option>Miễn phí (0đ)</option><option>Khóa học Pro</option></select><svg class=\"ds-select-icon\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"6 9 12 15 18 9\"/></svg></div></div>",
+      "css": ".ds-field-row { display: flex; gap: 10px; align-items: center; } .ds-lab-input { flex: 1; background: var(--color-sheet, #FFFFFF); color: var(--color-ink, #16181D); border: 1.5px solid var(--color-ink, #16181D); border-radius: 6px; padding: 8px 13px; font-family: \"Be Vietnam Pro\", sans-serif; font-size: 14px; transition: border-color 160ms ease, box-shadow 160ms ease; } .ds-lab-input::placeholder { color: var(--color-ink-subtle, #5C616B); } .ds-lab-input:focus { outline: none; border-color: var(--color-blueprint, #23469E); box-shadow: 0 0 0 3px rgba(35, 70, 158, 0.16); } .ds-select-wrap { position: relative; display: inline-flex; align-items: center; } .ds-lab-select { appearance: none; -webkit-appearance: none; background: var(--color-sheet, #FFFFFF); color: var(--color-ink, #16181D); border: 1.5px solid var(--color-ink, #16181D); border-radius: 5px; height: 36px; padding: 0 32px 0 12px; font-family: \"Be Vietnam Pro\", sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; } .ds-lab-select:focus { outline: none; border-color: var(--color-blueprint, #23469E); box-shadow: 0 0 0 3px rgba(35, 70, 158, 0.16); } .ds-select-icon { position: absolute; right: 10px; pointer-events: none; color: var(--color-ink, #16181D); }"
+    },
+    {
+      "name": "Status Badge Chips",
+      "kind": "chip",
+      "refersTo": "chip-free",
+      "description": "Tabular monospaced badges encoding Free, Pro VND price, and Owned states.",
+      "html": "<div class=\"ds-chip-row\"><span class=\"ds-chip ds-chip-free\">MIỄN PHÍ</span><span class=\"ds-chip ds-chip-pro\">1.290.000đ</span><span class=\"ds-chip ds-chip-ok\">ĐÃ SỞ HỮU</span></div>",
+      "css": ".ds-chip-row { display: flex; flex-wrap: wrap; gap: 8px; } .ds-chip { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 4px; font-family: \"JetBrains Mono\", monospace; font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; } .ds-chip-free { background: var(--color-blueprint-soft, #E6EEFC); color: var(--color-blueprint, #23469E); } .ds-chip-pro { background: var(--color-amber-soft, #FEF3C7); color: var(--color-amber-ink, #78350F); } .ds-chip-ok { background: var(--color-emerald-soft, #DCFCE7); color: var(--color-emerald-ok, #15803D); }"
+    },
+    {
+      "name": "Tabbed Lab Binder Sheet",
+      "kind": "custom",
+      "refersTo": "binder-sheet",
+      "description": "Signature physical folder tabs fusing seamlessly into an ink-framed white syllabus sheet.",
+      "html": "<div class=\"ds-binder\"><div class=\"ds-tablist\"><button type=\"button\" class=\"ds-tab ds-tab-active\"><span class=\"ds-tab-code\">01</span> Lộ trình Fullstack Web</button><button type=\"button\" class=\"ds-tab\"><span class=\"ds-tab-code\">02</span> Java Backend Engineer</button></div><div class=\"ds-sheet\"><div class=\"ds-sheet-head\"><span>JUNIOR FULLSTACK DEVELOPER</span><span>4 học phần</span></div><div class=\"ds-sheet-row\"><span><b>01.</b> HTML5, CSS3 &amp; Responsive từ Zero</span><span class=\"ds-pill-free\">MIỄN PHÍ</span></div></div></div>",
+      "css": ".ds-binder { font-family: \"Be Vietnam Pro\", sans-serif; color: var(--color-ink, #16181D); } .ds-tablist { display: flex; gap: 6px; position: relative; z-index: 10; margin-bottom: -1.5px; } .ds-tab { border: 1.5px solid var(--color-ink, #16181D); border-radius: 8px 8px 0 0; padding: 8px 16px; font-size: 13px; font-weight: 800; background: var(--color-paper-tab, #EAE5DA); color: var(--color-ink-muted, #4A4E57); cursor: pointer; transition: background-color 180ms ease, color 180ms ease; } .ds-tab:hover { background: var(--color-paper-soft, #FAF8F3); color: var(--color-ink, #16181D); } .ds-tab-active { background: var(--color-sheet, #FFFFFF); color: var(--color-ink, #16181D); border-bottom-color: var(--color-sheet, #FFFFFF); } .ds-tab-code { font-family: \"JetBrains Mono\", monospace; font-size: 12px; color: var(--color-ink-muted, #4A4E57); margin-right: 4px; } .ds-sheet { position: relative; z-index: 1; background: var(--color-sheet, #FFFFFF); border: 1.5px solid var(--color-ink, #16181D); border-radius: 0 10px 10px 10px; padding: 18px 20px; box-shadow: 0 10px 28px -18px rgba(22, 24, 29, 0.22); } .ds-sheet-head { display: flex; justify-content: space-between; font-family: \"JetBrains Mono\", monospace; font-size: 11px; font-weight: 700; color: var(--color-ink-muted, #4A4E57); padding-bottom: 8px; border-bottom: 1px solid var(--color-rule, #D6D1C4); } .ds-sheet-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 10px; font-size: 13px; font-weight: 600; } .ds-pill-free { font-family: \"JetBrains Mono\", monospace; font-size: 10.5px; font-weight: 700; background: var(--color-blueprint-soft, #E6EEFC); color: var(--color-blueprint, #23469E); padding: 2px 8px; border-radius: 4px; }"
+    },
+    {
+      "name": "Course Index Card",
+      "kind": "card",
+      "refersTo": "course-card",
+      "description": "Catalog card with 8px semantic Free/Pro status bar, metadata row, tabular VND price, and action.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-bar\"></div><div class=\"ds-card-body\"><div class=\"ds-card-meta\"><span class=\"ds-card-code\">PRO-01 · PRO</span><span>Trung cấp</span></div><h3 class=\"ds-card-title\">Java Web Jakarta EE 10, MVC &amp; Thanh toán Stripe</h3><div class=\"ds-card-foot\"><div class=\"ds-card-price\">1.290.000đ</div><button type=\"button\" class=\"ds-card-cta\">+ Giỏ hàng</button></div></div></article>",
+      "css": ".ds-card { max-width: 308px; background: var(--color-sheet, #FFFFFF); border: 1.5px solid var(--color-ink, #16181D); border-radius: 8px; overflow: hidden; font-family: \"Be Vietnam Pro\", sans-serif; color: var(--color-ink, #16181D); transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-card:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -16px rgba(22, 24, 29, 0.28); } .ds-card-bar { height: 8px; background: var(--color-amber-bar, #D97706); } .ds-card-body { padding: 14px; } .ds-card-meta { display: flex; justify-content: space-between; font-family: \"JetBrains Mono\", monospace; font-size: 11px; font-weight: 700; color: var(--color-ink-muted, #4A4E57); margin-bottom: 6px; } .ds-card-code { color: var(--color-amber-pro, #B45309); } .ds-card-title { margin: 0 0 12px; font-size: 15px; font-weight: 800; line-height: 1.35; } .ds-card-foot { padding-top: 10px; border-top: 1px solid var(--color-rule, #D6D1C4); display: flex; justify-content: space-between; align-items: center; } .ds-card-price { font-size: 16px; font-weight: 800; font-variant-numeric: tabular-nums; } .ds-card-cta { background: var(--color-ink, #16181D); color: var(--color-paper-soft, #FAF8F3); border: 1.5px solid var(--color-ink, #16181D); border-radius: 6px; padding: 6px 12px; font-size: 12px; font-weight: 700; cursor: pointer; } .ds-card-cta:hover { background: #2B2F3A; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Engineering Lab Binder Manual",
+    "overview": "CourseShop treats programming education as a tactile engineering handbook rather than a flash-sale marketplace or dark neon SaaS pitch. Warm limestone paper grounds frame crisp white binder sheets separated by physical top-attached career-path tabs, carbon-ink structural rules, and disciplined two-color coding that immediately distinguishes 0đ foundation labs from paid production projects.\n\nEvery visual token earns its place through utility: typography preserves crisp Vietnamese diacritics across headings and dense syllabus tables, monospaced tabular numerals keep VND prices, course codes (`LAB-01`, `PRO-02`), and video timestamps aligned vertically, and dark surfaces appear only where video playback demands zero glare inside `/learn`.",
+    "keyCharacteristics": [
+      "Tactile limestone paper ground (`#F4F1EA`) paired with crisp white ink-ruled index sheets (`#FFFFFF`) and structural 1.5px carbon-ink borders (`#16181D`).",
+      "Strict dual-accent semantic coding: Blueprint Indigo exclusively for Free foundation tracks and primary learning flows; Safety Amber exclusively for Pro projects, discounts, and paid conversion actions.",
+      "Physical top-attached Lab Binder tabs that fuse seamlessly into the active white syllabus sheet without dividing lines.",
+      "Vietnamese-crisp neo-grotesk sans (`Be Vietnam Pro`) paired with tabular monospaced engineering codes (`JetBrains Mono`), both self-hosted as local `.woff2` assets.",
+      "Zero decorative kickers, zero neon gradients, zero emoji chrome (100% Lucide stroke icons), and a dedicated dark-theatre learning surface (`/learn`)."
+    ],
+    "rules": [
+      {
+        "name": "The Dual-Ink Ownership Rule",
+        "body": "Blueprint Indigo (`#23469E`) owns Free foundations and learning progress; Amber (`#B45309` / `#D97706`) owns Pro projects and commercial discounts. Never swap them or introduce competing brand hues.",
+        "section": "colors"
+      },
+      {
+        "name": "The AA Amber Text Rule",
+        "body": "White text on amber surfaces uses `#B45309` (not `#D97706`), while light `#FEF3C7` badges always pair with `#78350F` text to stay safely above WCAG AA 4.5:1.",
+        "section": "colors"
+      },
+      {
+        "name": "The Zero-Kicker Rule",
+        "body": "Headlines open directly with the thesis; never place uppercase tracked eyebrows or pill kickers above `h1` or section headings.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Currency Rule",
+        "body": "Every VND price, lesson duration, timestamp, order number, and KPI counter applies `font-variant-numeric: tabular-nums` so numbers align cleanly across grids and admin ledgers.",
+        "section": "typography"
+      },
+      {
+        "name": "The Structural Ink Rule",
+        "body": "Never use hard offset neobrutalist shadows (`4px 4px 0 #000`); crispness comes from `1.5px solid #16181D` borders paired with restrained diffused lift on state changes.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do fuse active binder tabs seamlessly into `.binder-sheet` using `.binder-tablist` negative overlap (`-1.5px`) and matching `#FFFFFF` bottom border.",
+      "Do present both Free (`LAB-*`, Blueprint Indigo) and Pro (`PRO-*`, Safety Amber) courses visibly in the storefront's first viewport so learners see the 0đ-to-Pro progression immediately.",
+      "Do self-host `Be Vietnam Pro` and `JetBrains Mono` `.woff2` subsets with `tabular-nums` on every VND price, lesson duration, timestamp, and order code.",
+      "Do wrap Vietnamese titles naturally inside syllabus cards and mobile views instead of mid-word `truncate` clipping.",
+      "Do keep `select.lab-select` free of native OS triangles by pairing `appearance: none` with Lucide `chevron-down` icons and `pr-8` clearance.",
+      "Do keep toasts anchored at `bottom-left` so they never cover top-right header CTAs or the bottom-right AI chat trigger."
+    ],
+    "donts": [
+      "Don't add Bootstrap, generic glassmorphism, neon glow gradients, or hard offset neobrutalist shadows anywhere in the system.",
+      "Don't place uppercase tracked kickers or pill eyebrows above `h1` or section headings.",
+      "Don't use Unicode emojis as UI icons; always use Lucide stroke icons consistently.",
+      "Don't place white text on `#D97706` or drop secondary text contrast below WCAG AA `4.5:1` (never add `opacity-75` to `#4A4E57` labels on `#EAE5DA`).",
+      "Don't duplicate filter controls (such as placing category pills immediately beneath a category `<select>` dropdown).",
+      "Don't fabricate real-world commercial numbers, student testimonials, or partner logos; keep demo data honestly structured and disclosed."
+    ]
+  }
+}

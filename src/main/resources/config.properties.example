@@ -1,0 +1,25 @@
+# Copy to config.properties for local setup, or set as Environment Variables on Render.com.
+# Never commit real API keys or webhook secrets.
+
+# Database (ENV: COURSESHOP_DB_URL, COURSESHOP_DB_USER, COURSESHOP_DB_PASSWORD)
+db.url=jdbc:mysql://localhost:3306/course_shop?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true&useSSL=false
+db.user=root
+db.password=
+
+# Public App URL behind Render proxy (ENV: APP_BASE_URL, e.g. https://courseshop.onrender.com)
+app.baseUrl=
+
+# Stripe Sandbox / Live (ENV: STRIPE_SECRET_KEY, STRIPE_PUBLISHABLE_KEY, STRIPE_WEBHOOK_SECRET)
+stripe.secretKey=
+stripe.publishableKey=
+stripe.webhookSecret=
+
+# Google Gemini AI (ENV: GEMINI_API_KEY, GEMINI_MODEL)
+gemini.apiKey=
+gemini.model=gemini-3.8-flash
+
+# Optional: Supabase Storage for persistent course cover uploads on Render
+# (ENV: SUPABASE_URL, SUPABASE_KEY, SUPABASE_BUCKET)
+supabase.url=
+supabase.key=
+supabase.bucket=courseshop

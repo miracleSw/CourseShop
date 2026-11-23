@@ -1,0 +1,9 @@
+node_modules
+target
+.git
+.impeccable
+database/*_backup.sql
+src/main/resources/config.properties
+.env
+.env.*
+*.zip
