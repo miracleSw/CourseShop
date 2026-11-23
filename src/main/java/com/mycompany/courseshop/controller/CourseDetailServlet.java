@@ -3,6 +3,7 @@ package com.mycompany.courseshop.controller;
 import com.mycompany.courseshop.dao.CourseDAO;
 import com.mycompany.courseshop.dao.EnrollmentDAO;
 import com.mycompany.courseshop.dao.ReviewDAO;
+import com.mycompany.courseshop.dao.WishlistDAO;
 import com.mycompany.courseshop.model.Course;
 import com.mycompany.courseshop.model.Lesson;
 import com.mycompany.courseshop.model.Section;
@@ -23,6 +24,7 @@ public class CourseDetailServlet extends HttpServlet {
     private final CourseDAO courseDAO = new CourseDAO();
     private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
     private final ReviewDAO reviewDAO = new ReviewDAO();
+    private final WishlistDAO wishlistDAO = new WishlistDAO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -46,6 +48,7 @@ public class CourseDetailServlet extends HttpServlet {
         HttpSession session = req.getSession(false);
         User user = (session != null) ? (User) session.getAttribute("user") : null;
         boolean enrolled = (user != null) && enrollmentDAO.isEnrolled(user.getId(), course.getId());
+        boolean wishlisted = (user != null) && wishlistDAO.getWishlistCourseIds(user.getId()).contains(course.getId());
 
         List<Section> sections = courseDAO.findSectionsWithLessons(course.getId(), user != null ? user.getId() : null);
         Lesson firstPreview = null;
@@ -70,6 +73,7 @@ public class CourseDetailServlet extends HttpServlet {
         req.setAttribute("sections", sections);
         req.setAttribute("firstPreview", firstPreview);
         req.setAttribute("enrolled", enrolled);
+        req.setAttribute("wishlisted", wishlisted);
         req.setAttribute("inCart", inCart);
         req.setAttribute("reviews", reviewDAO.findByCourse(course.getId()));
         req.setAttribute("ratingDist", reviewDAO.getRatingDistribution(course.getId()));

@@ -17,9 +17,11 @@ public class AdminUserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("users", userDAO.findAll());
+        String q = req.getParameter("q");
+        req.setAttribute("q", q == null ? "" : q.trim());
+        req.setAttribute("users", userDAO.searchAll(q));
         req.setAttribute("adminNav", "users");
-        req.setAttribute("pageTitle", "Quản lý Người dùng — Admin CourseShop");
+        req.setAttribute("pageTitle", "Quản lý Người dùng — Quản trị CourseShop");
         req.getRequestDispatcher("/views/admin/users.jsp").forward(req, resp);
     }
 

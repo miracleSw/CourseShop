@@ -56,10 +56,41 @@ public class EnrollmentDAO {
         }
     }
 
+    public void updateLastLesson(int userId, int courseId, int lessonId) {
+        String sql = "UPDATE enrollments SET last_lesson_id = ? WHERE user_id = ? AND course_id = ?";
+        try (Connection con = DBContext.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, lessonId);
+            ps.setInt(2, userId);
+            ps.setInt(3, courseId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Integer getLastLessonId(int userId, int courseId) {
+        String sql = "SELECT last_lesson_id FROM enrollments WHERE user_id = ? AND course_id = ? LIMIT 1";
+        try (Connection con = DBContext.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ps.setInt(2, courseId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int val = rs.getInt(1);
+                    return rs.wasNull() ? null : val;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public List<Enrollment> findByUserWithProgress(int userId) {
         List<Enrollment> list = new ArrayList<>();
         String sql = """
-            SELECT e.id AS enroll_id, e.user_id, e.course_id, e.order_id, e.enrolled_at,
+            SELECT e.id AS enroll_id, e.user_id, e.course_id, e.order_id, e.enrolled_at, e.last_lesson_id,
                    co.*, cat.name AS category_name,
                    (SELECT COUNT(*) FROM lessons l WHERE l.course_id = co.id) AS lesson_count,
                    (SELECT COALESCE(SUM(l.duration_seconds), 0) FROM lessons l WHERE l.course_id = co.id) AS total_duration,
@@ -84,6 +115,8 @@ public class EnrollmentDAO {
                     en.setCourseId(rs.getInt("course_id"));
                     int oid = rs.getInt("order_id");
                     en.setOrderId(rs.wasNull() ? null : oid);
+                    int llid = rs.getInt("last_lesson_id");
+                    en.setLastLessonId(rs.wasNull() ? null : llid);
                     en.setEnrolledAt(rs.getTimestamp("enrolled_at"));
                     Course c = CourseDAO.mapSummaryRow(rs);
                     en.setCourse(c);

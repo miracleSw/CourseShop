@@ -92,16 +92,51 @@ public class UserDAO {
     }
 
     public List<User> findAll() {
+        return searchAll(null);
+    }
+
+    public List<User> searchAll(String q) {
         List<User> list = new ArrayList<>();
-        String sql = "SELECT * FROM users ORDER BY created_at DESC";
+        boolean hasQ = q != null && !q.isBlank();
+        String sql = hasQ
+                ? "SELECT * FROM users WHERE full_name LIKE ? OR email LIKE ? OR phone LIKE ? ORDER BY created_at DESC"
+                : "SELECT * FROM users ORDER BY created_at DESC";
         try (Connection con = DBContext.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) list.add(mapRow(rs));
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            if (hasQ) {
+                String like = "%" + q.trim() + "%";
+                ps.setString(1, like);
+                ps.setString(2, like);
+                ps.setString(3, like);
+            }
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) list.add(mapRow(rs));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public void updateProfile(int userId, String fullName, String phone) throws SQLException {
+        String sql = "UPDATE users SET full_name = ?, phone = ? WHERE id = ?";
+        try (Connection con = DBContext.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, fullName.trim());
+            ps.setString(2, phone == null ? "" : phone.trim());
+            ps.setInt(3, userId);
+            ps.executeUpdate();
+        }
+    }
+
+    public void updatePassword(int userId, String passwordHash) throws SQLException {
+        String sql = "UPDATE users SET password_hash = ? WHERE id = ?";
+        try (Connection con = DBContext.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, passwordHash);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+        }
     }
 
     public void updateStatus(int userId, boolean active) throws SQLException {

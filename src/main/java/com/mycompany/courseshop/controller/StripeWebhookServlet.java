@@ -4,7 +4,9 @@ import com.mycompany.courseshop.dao.CartDAO;
 import com.mycompany.courseshop.dao.OrderDAO;
 import com.mycompany.courseshop.dao.PaymentTransactionDAO;
 import com.mycompany.courseshop.model.Order;
+import com.mycompany.courseshop.service.EmailService;
 import com.mycompany.courseshop.service.StripeService;
+import com.mycompany.courseshop.utils.CsrfUtil;
 import com.stripe.exception.EventDataObjectDeserializationException;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.model.Event;
@@ -32,6 +34,7 @@ import java.util.Map;
 public class StripeWebhookServlet extends HttpServlet {
 
     private final StripeService stripeService = new StripeService();
+    private final EmailService emailService = new EmailService();
     private final OrderDAO orderDAO = new OrderDAO();
     private final CartDAO cartDAO = new CartDAO();
     private final PaymentTransactionDAO txDAO = new PaymentTransactionDAO();
@@ -160,9 +163,17 @@ public class StripeWebhookServlet extends HttpServlet {
         if (s.getId() != null && (order.getStripeSessionId() == null || order.getStripeSessionId().isBlank())) {
             orderDAO.updateStripeSessionId(order.getId(), s.getId());
         }
+        boolean wasAlreadyPaid = "PAID".equalsIgnoreCase(order.getStatus());
         orderDAO.markOrderPaidAndEnroll(order.getId());
         cartDAO.clearByUser(order.getUserId());
         txDAO.log(order.getId(), "STRIPE", s.getId(), finalTotal, "SUCCEEDED", message);
+        if (!wasAlreadyPaid) {
+            String baseUrl = com.mycompany.courseshop.config.AppConfig.getAppBaseUrl();
+            if (baseUrl != null && !baseUrl.isBlank()) {
+                emailService.sendOrderConfirmationAsync(orderDAO.findById(order.getId()),
+                        baseUrl.endsWith("/") ? baseUrl.substring(0, baseUrl.length() - 1) : baseUrl);
+            }
+        }
     }
 
     private void handleCheckoutSessionFailed(Session s, String message) throws SQLException {

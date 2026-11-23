@@ -94,4 +94,20 @@ public class SettingsDAO {
         if (fromDb != null && !fromDb.isBlank()) return fromDb;
         return AppConfig.getGeminiModel();
     }
+
+    public String getResendApiKey() {
+        String envOrProp = AppConfig.getResendApiKey();
+        if (envOrProp != null && !envOrProp.isBlank()) return envOrProp;
+        return get("mail.resend_api_key", "");
+    }
+
+    public String getMailFrom() {
+        String envOrProp = AppConfig.getMailFrom();
+        if (envOrProp != null && !envOrProp.isBlank()) return envOrProp;
+        return get("mail.from", "CourseShop <onboarding@resend.dev>");
+    }
+
+    public String getBankBin() {
+        return get("bank.bin", "970415");
+    }
 }

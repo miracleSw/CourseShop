@@ -28,11 +28,47 @@
                     <p class="text-[15px] text-ink-muted mt-1.5">
                         Vui lòng chuyển khoản đúng số tiền và nội dung bên dưới. Khóa học sẽ tự động kích hoạt ngay sau khi bộ phận hỗ trợ xác nhận giao dịch.
                     </p>
-                    <div class="mt-5 p-4 rounded-lg bg-paper-soft border border-rule font-mono text-[13.5px] space-y-1.5">
-                        <div>Ngân hàng: <strong class="text-ink"><c:out value="${siteSettings['bank.name']}"/></strong></div>
-                        <div>Số tài khoản: <strong class="text-ink"><c:out value="${siteSettings['bank.account_number']}"/></strong> (<c:out value="${siteSettings['bank.account_holder']}"/>)</div>
-                        <div>Số tiền: <strong class="text-amber-pro">${order.formattedTotal}</strong></div>
-                        <div>Nội dung CK: <strong class="text-blueprint">${order.orderCode}</strong></div>
+                    <div class="mt-5 grid grid-cols-1 md:grid-cols-12 gap-5 items-center p-4 sm:p-5 rounded-lg bg-paper-soft border border-rule">
+                        <c:if test="${not empty vietQrUrl}">
+                            <div class="md:col-span-5 flex flex-col items-center">
+                                <div class="bg-sheet p-2.5 rounded-lg border-[1.5px] border-ink shadow-sm">
+                                    <img src="${vietQrUrl}" alt="Mã QR chuyển khoản VietQR cho đơn ${order.orderCode}"
+                                         class="w-52 h-auto object-contain rounded">
+                                </div>
+                                <span class="text-[11.5px] font-semibold text-ink-muted mt-2 text-center">Quét bằng ứng dụng ngân hàng để tự điền sẵn số tiền &amp; nội dung</span>
+                            </div>
+                        </c:if>
+                        <div class="${not empty vietQrUrl ? 'md:col-span-7' : 'md:col-span-12'} space-y-2.5 text-[13.5px]">
+                            <div class="p-2.5 rounded bg-sheet border border-rule">
+                                <div class="text-[11.5px] text-ink-muted">Ngân hàng</div>
+                                <div class="font-bold text-ink mt-0.5"><c:out value="${siteSettings['bank.name']}"/></div>
+                            </div>
+                            <div class="p-2.5 rounded bg-sheet border border-rule flex items-center justify-between gap-2">
+                                <div class="min-w-0">
+                                    <div class="text-[11.5px] text-ink-muted">Số tài khoản · Chủ tài khoản</div>
+                                    <div class="font-mono font-bold text-ink mt-0.5"><c:out value="${siteSettings['bank.account_number']}"/></div>
+                                    <div class="text-[12px] font-semibold text-ink-muted"><c:out value="${siteSettings['bank.account_holder']}"/></div>
+                                </div>
+                                <button type="button" onclick="copyText('<c:out value="${siteSettings['bank.account_number']}"/>', 'số tài khoản')"
+                                        class="btn-outline-ink px-2.5 py-1.5 text-[12px] shrink-0">Sao chép</button>
+                            </div>
+                            <div class="p-2.5 rounded bg-sheet border border-rule flex items-center justify-between gap-2">
+                                <div>
+                                    <div class="text-[11.5px] text-ink-muted">Số tiền chính xác</div>
+                                    <div class="font-mono font-extrabold text-[16px] text-amber-pro tabular-nums mt-0.5">${order.formattedTotal}</div>
+                                </div>
+                                <button type="button" onclick="copyText('${order.totalAmount.longValue()}', 'số tiền')"
+                                        class="btn-outline-ink px-2.5 py-1.5 text-[12px] shrink-0">Sao chép</button>
+                            </div>
+                            <div class="p-2.5 rounded bg-sheet border border-rule flex items-center justify-between gap-2">
+                                <div>
+                                    <div class="text-[11.5px] text-ink-muted">Nội dung chuyển khoản (bắt buộc)</div>
+                                    <div class="font-mono font-extrabold text-[15px] text-blueprint mt-0.5">${order.orderCode}</div>
+                                </div>
+                                <button type="button" onclick="copyText('${order.orderCode}', 'nội dung chuyển khoản')"
+                                        class="btn-blueprint px-2.5 py-1.5 text-[12px] shrink-0">Sao chép</button>
+                            </div>
+                        </div>
                     </div>
                 </c:when>
 

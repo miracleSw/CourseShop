@@ -62,12 +62,20 @@
                                         <div class="h-full ${en.progressPercent == 100 ? 'bg-emerald-ok' : 'bg-blueprint'}"
                                              style="width: ${en.progressPercent}%"></div>
                                     </div>
-                                    <div class="pt-3 flex items-center justify-between gap-2">
-                                        <a href="${pageContext.request.contextPath}/learn?courseId=${c.id}"
+                                    <div class="pt-3 flex flex-wrap items-center justify-between gap-2">
+                                        <a href="${pageContext.request.contextPath}/learn?courseId=${c.id}${not empty en.lastLessonId ? '&lessonId='.concat(en.lastLessonId) : ''}"
                                            class="btn-blueprint flex-1 py-2 text-[13.5px]">
                                             <i data-lucide="play" class="w-3.5 h-3.5"></i>
-                                            <span>${en.completedLessons > 0 ? 'Tiếp tục học' : 'Bắt đầu học'}</span>
+                                            <span>${en.completedLessons > 0 || not empty en.lastLessonId ? 'Tiếp tục học' : 'Bắt đầu học'}</span>
                                         </a>
+                                        <c:if test="${not empty en.certificateCode}">
+                                            <a href="${pageContext.request.contextPath}/certificate/${en.certificateCode}"
+                                               title="Xem chứng chỉ hoàn thành"
+                                               class="btn-pro px-3 py-2 text-[13px]">
+                                                <i data-lucide="award" class="w-4 h-4"></i>
+                                                <span>Chứng chỉ</span>
+                                            </a>
+                                        </c:if>
                                         <a href="${pageContext.request.contextPath}/course?slug=${c.slug}#reviews"
                                            title="Đánh giá khóa học"
                                            class="btn-outline-ink px-3 py-2 text-[13px]">
@@ -82,6 +90,64 @@
             </c:otherwise>
         </c:choose>
     </section>
+
+    <!-- Wishlist Courses Section -->
+    <c:if test="${not empty wishlistCourses}">
+        <section id="wishlist">
+            <div class="flex flex-wrap items-end justify-between gap-3 pb-3 mb-5 border-b border-rule">
+                <div>
+                    <h2 class="text-[22px] font-extrabold text-ink">Khóa học yêu thích</h2>
+                    <p class="text-[13.5px] text-ink-muted mt-0.5">Danh sách các khóa học bạn đã lưu để theo dõi ưu đãi và đăng ký sau.</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <c:forEach var="wc" items="${wishlistCourses}">
+                    <article class="course-card flex flex-col">
+                        <div class="h-2 bg-amber-bar"></div>
+                        <div class="relative aspect-video bg-ink border-b border-rule overflow-hidden">
+                            <a href="${pageContext.request.contextPath}/course?slug=${wc.slug}" class="block w-full h-full">
+                                <img src="${wc.externalThumbnail ? '' : pageContext.request.contextPath}${wc.externalThumbnail ? '' : '/'}${wc.thumbnail}"
+                                     alt="<c:out value='${wc.title}'/>" class="w-full h-full object-cover">
+                            </a>
+                            <c:if test="${wc.hasDiscount}">
+                                <span class="absolute top-2.5 right-2.5 font-mono text-[11px] font-bold px-2.5 py-0.5 rounded bg-amber-pro text-white shadow">
+                                    Đang ưu đãi -${wc.discountPercent}%
+                                </span>
+                            </c:if>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col">
+                            <div class="font-mono text-[11px] font-bold text-amber-pro mb-1">${wc.code} · ${wc.levelLabel}</div>
+                            <h3 class="font-extrabold text-[16px] text-ink leading-snug mb-3">
+                                <a href="${pageContext.request.contextPath}/course?slug=${wc.slug}" class="hover:text-blueprint">
+                                    <c:out value="${wc.title}"/>
+                                </a>
+                            </h3>
+                            <div class="mt-auto pt-3 border-t border-rule flex items-center justify-between gap-2">
+                                <div class="tabular-nums">
+                                    <div class="text-[16px] font-extrabold text-ink leading-none">${wc.formattedEffectivePrice}</div>
+                                    <c:if test="${wc.hasDiscount}">
+                                        <div class="text-[11.5px] text-ink-subtle line-through mt-0.5">${wc.formattedPrice}</div>
+                                    </c:if>
+                                </div>
+                                <div class="flex items-center gap-1.5">
+                                    <button type="button" onclick="addToCartAsync(${wc.id}, this)"
+                                            class="btn-ink px-3 py-1.5 text-[12px]">
+                                        <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                                        <span>Giỏ hàng</span>
+                                    </button>
+                                    <button type="button" onclick="toggleWishlistAsync(${wc.id}, this).then(() => window.location.reload())"
+                                            title="Bỏ yêu thích"
+                                            class="btn-outline-ink px-2.5 py-1.5 text-[12px] text-danger">
+                                        <i data-lucide="heart-off" class="w-3.5 h-3.5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </c:forEach>
+            </div>
+        </section>
+    </c:if>
 
     <!-- Order History -->
     <section>

@@ -2,6 +2,8 @@ package com.mycompany.courseshop.controller.admin;
 
 import com.mycompany.courseshop.config.AppConfig;
 import com.mycompany.courseshop.dao.SettingsDAO;
+import com.mycompany.courseshop.model.User;
+import com.mycompany.courseshop.service.EmailService;
 import com.mycompany.courseshop.service.GeminiChatService;
 import com.mycompany.courseshop.service.StripeService;
 import com.mycompany.courseshop.utils.FormatUtil;
@@ -19,6 +21,7 @@ public class AdminSettingsServlet extends HttpServlet {
     private final SettingsDAO settingsDAO = new SettingsDAO();
     private final StripeService stripeService = new StripeService();
     private final GeminiChatService geminiService = new GeminiChatService();
+    private final EmailService emailService = new EmailService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,6 +42,13 @@ public class AdminSettingsServlet extends HttpServlet {
         req.setAttribute("hasGeminiKey", geminiService.isConfigured());
         req.setAttribute("geminiFromEnv", AppConfig.isEnvSet("GEMINI_API_KEY"));
         req.setAttribute("geminiModel", settingsDAO.getGeminiModel());
+
+        String resendKey = settingsDAO.getResendApiKey();
+        req.setAttribute("resendKeyMasked", FormatUtil.maskSecret(resendKey));
+        req.setAttribute("hasResendKey", emailService.isConfigured());
+        req.setAttribute("resendFromEnv", AppConfig.isEnvSet("RESEND_API_KEY"));
+        req.setAttribute("mailFrom", settingsDAO.getMailFrom());
+        req.setAttribute("bankBin", settingsDAO.getBankBin());
 
         req.setAttribute("adminNav", "settings");
         req.setAttribute("pageTitle", "Cài đặt hệ thống — Quản trị CourseShop");
@@ -93,9 +103,29 @@ public class AdminSettingsServlet extends HttpServlet {
                 upsertNonNull("site.hotline", req.getParameter("hotline"));
                 upsertNonNull("site.address", req.getParameter("address"));
                 upsertNonNull("bank.name", req.getParameter("bankName"));
+                upsertNonNull("bank.bin", req.getParameter("bankBin"));
                 upsertNonNull("bank.account_number", req.getParameter("bankAccountNumber"));
                 upsertNonNull("bank.account_holder", req.getParameter("bankAccountHolder"));
                 req.getSession().setAttribute("flashSuccess", "Đã lưu thông tin website và tài khoản ngân hàng.");
+            } else if ("saveMail".equalsIgnoreCase(action)) {
+                upsertNonNull("mail.from", req.getParameter("mailFrom"));
+                String rk = req.getParameter("resendApiKey");
+                if (rk != null && !rk.isBlank()) settingsDAO.upsert("mail.resend_api_key", rk);
+                if ("1".equals(req.getParameter("clearResendKey"))) {
+                    settingsDAO.upsert("mail.resend_api_key", "");
+                }
+                req.getSession().setAttribute("flashSuccess", "Đã lưu cấu hình gửi email tự động.");
+            } else if ("testMail".equalsIgnoreCase(action)) {
+                User current = (User) req.getSession().getAttribute("user");
+                String targetEmail = req.getParameter("testEmail");
+                if (targetEmail == null || targetEmail.isBlank()) {
+                    targetEmail = current != null ? current.getEmail() : "";
+                }
+                EmailService.SendResult res = emailService.sendHtml(
+                        targetEmail,
+                        "[CourseShop] Kiểm tra kết nối gửi email tự động",
+                        "<p>Kết nối gửi email tự động từ hệ thống CourseShop đã hoạt động ổn định.</p>");
+                req.getSession().setAttribute(res.ok() ? "flashSuccess" : "flashError", res.message());
             }
         } catch (SQLException e) {
             req.getSession().setAttribute("flashError", "Không thể lưu cấu hình lúc này. Vui lòng thử lại.");

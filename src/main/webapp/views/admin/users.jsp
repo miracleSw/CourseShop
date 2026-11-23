@@ -11,6 +11,19 @@
         <p class="text-[14px] text-ink-muted mt-1">Xem danh sách tài khoản, phân quyền Quản trị/Học viên và khóa tạm thời khi cần.</p>
     </div>
 
+    <form action="${pageContext.request.contextPath}/admin/users" method="get"
+          class="binder-sheet rounded-xl p-4 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+        <input type="search" name="q" value="<c:out value='${q}'/>"
+               placeholder="Tìm theo họ tên, email hoặc số điện thoại..."
+               class="lab-input h-10 text-[13.5px] flex-1">
+        <div class="flex gap-2 shrink-0">
+            <button type="submit" class="btn-ink h-10 px-4 text-[13px]">Tìm người dùng</button>
+            <c:if test="${not empty q}">
+                <a href="${pageContext.request.contextPath}/admin/users" class="btn-outline-ink h-10 px-3.5 text-[13px]">Xóa lọc</a>
+            </c:if>
+        </div>
+    </form>
+
     <section class="binder-sheet rounded-xl overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-[13.5px] border-collapse">
@@ -33,13 +46,13 @@
                                 <div class="font-mono text-[12px] text-ink-muted"><c:out value="${u.email}"/></div>
                             </td>
                             <td class="px-5 py-3.5 font-mono text-[12.5px] text-ink-muted"><c:out value="${not empty u.phone ? u.phone : '—'}"/></td>
-                            <td class="px-5 py-3.5">
-                                <span class="text-[11.5px] font-bold px-2 py-0.5 rounded ${u.admin ? 'bg-amber-soft text-amber-ink' : 'bg-blueprint-soft text-blueprint'}">
+                            <td class="px-5 py-3.5 whitespace-nowrap">
+                                <span class="inline-block whitespace-nowrap text-[11.5px] font-bold px-2 py-0.5 rounded ${u.admin ? 'bg-amber-soft text-amber-ink' : 'bg-blueprint-soft text-blueprint'}">
                                     ${u.admin ? 'Quản trị' : 'Học viên'}
                                 </span>
                             </td>
-                            <td class="px-5 py-3.5">
-                                <span class="text-[11.5px] font-bold px-2 py-0.5 rounded ${u.status ? 'bg-emerald-soft text-emerald-ok' : 'bg-danger-soft text-danger'}">
+                            <td class="px-5 py-3.5 whitespace-nowrap">
+                                <span class="inline-block whitespace-nowrap text-[11.5px] font-bold px-2 py-0.5 rounded ${u.status ? 'bg-emerald-soft text-emerald-ok' : 'bg-danger-soft text-danger'}">
                                     ${u.status ? 'Hoạt động' : 'Đã khóa'}
                                 </span>
                             </td>

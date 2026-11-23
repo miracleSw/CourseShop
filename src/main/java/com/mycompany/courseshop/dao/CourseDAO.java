@@ -167,12 +167,27 @@ public class CourseDAO {
     }
 
     public List<Course> findAllForAdmin() {
+        return findAllForAdmin(null);
+    }
+
+    public List<Course> findAllForAdmin(String q) {
         List<Course> list = new ArrayList<>();
-        String sql = BASE_SELECT + " ORDER BY co.created_at DESC, co.id DESC";
+        boolean hasQ = q != null && !q.isBlank();
+        String sql = hasQ
+                ? BASE_SELECT + " WHERE co.code LIKE ? OR co.title LIKE ? OR co.instructor_name LIKE ? OR cat.name LIKE ? ORDER BY co.created_at DESC, co.id DESC"
+                : BASE_SELECT + " ORDER BY co.created_at DESC, co.id DESC";
         try (Connection con = DBContext.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) list.add(mapSummaryRow(rs));
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            if (hasQ) {
+                String like = "%" + q.trim() + "%";
+                ps.setString(1, like);
+                ps.setString(2, like);
+                ps.setString(3, like);
+                ps.setString(4, like);
+            }
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) list.add(mapSummaryRow(rs));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -376,6 +391,17 @@ public class CourseDAO {
         }
     }
 
+    public void updateSection(int sectionId, String title, int sortOrder) throws SQLException {
+        String sql = "UPDATE sections SET title = ?, sort_order = ? WHERE id = ?";
+        try (Connection con = DBContext.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, title.trim());
+            ps.setInt(2, sortOrder);
+            ps.setInt(3, sectionId);
+            ps.executeUpdate();
+        }
+    }
+
     public void deleteSection(int sectionId) throws SQLException {
         String sql = "DELETE FROM sections WHERE id = ?";
         try (Connection con = DBContext.getConnection();
@@ -400,6 +426,25 @@ public class CourseDAO {
             ps.setString(6, l.getContentText() == null ? "" : l.getContentText().trim());
             ps.setBoolean(7, l.isPreview());
             ps.setInt(8, l.getSortOrder());
+            ps.executeUpdate();
+        }
+    }
+
+    public void updateLesson(Lesson l) throws SQLException {
+        String sql = """
+            UPDATE lessons
+            SET title = ?, video_url = ?, duration_seconds = ?, content_text = ?, is_preview = ?, sort_order = ?
+            WHERE id = ?
+            """;
+        try (Connection con = DBContext.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, l.getTitle().trim());
+            ps.setString(2, l.getVideoUrl() == null ? "" : l.getVideoUrl().trim());
+            ps.setInt(3, Math.max(60, l.getDurationSeconds()));
+            ps.setString(4, l.getContentText() == null ? "" : l.getContentText().trim());
+            ps.setBoolean(5, l.isPreview());
+            ps.setInt(6, l.getSortOrder());
+            ps.setInt(7, l.getId());
             ps.executeUpdate();
         }
     }

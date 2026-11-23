@@ -25,6 +25,23 @@
         </div>
     </div>
 
+    <form action="${pageContext.request.contextPath}/admin/orders" method="get"
+          class="binder-sheet rounded-xl p-4 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+        <c:if test="${not empty statusFilter}">
+            <input type="hidden" name="status" value="<c:out value='${statusFilter}'/>">
+        </c:if>
+        <input type="search" name="q" value="<c:out value='${q}'/>"
+               placeholder="Tìm theo mã đơn hàng, tên học viên hoặc email..."
+               class="lab-input h-10 text-[13.5px] flex-1">
+        <div class="flex gap-2 shrink-0">
+            <button type="submit" class="btn-ink h-10 px-4 text-[13px]">Tìm đơn hàng</button>
+            <c:if test="${not empty q}">
+                <a href="${pageContext.request.contextPath}/admin/orders<c:if test='${not empty statusFilter}'>?status=${statusFilter}</c:if>"
+                   class="btn-outline-ink h-10 px-3.5 text-[13px]">Xóa lọc</a>
+            </c:if>
+        </div>
+    </form>
+
     <section class="binder-sheet rounded-xl overflow-hidden">
         <c:choose>
             <c:when test="${empty orders}">

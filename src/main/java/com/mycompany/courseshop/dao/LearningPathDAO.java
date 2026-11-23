@@ -3,10 +3,12 @@ package com.mycompany.courseshop.dao;
 import com.mycompany.courseshop.model.Course;
 import com.mycompany.courseshop.model.LearningPath;
 import com.mycompany.courseshop.utils.DBContext;
+import com.mycompany.courseshop.utils.FormatUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -83,5 +85,83 @@ public class LearningPathDAO {
             e.printStackTrace();
         }
         return new ArrayList<>(map.values());
+    }
+
+    public LearningPath findById(int id) {
+        for (LearningPath lp : findAllWithCourses()) {
+            if (lp.getId() == id) return lp;
+        }
+        return null;
+    }
+
+    public int createPath(String title, String summary, String targetRole, int sortOrder) throws SQLException {
+        String slug = FormatUtil.slugify(title);
+        String sql = "INSERT INTO learning_paths (title, slug, summary, target_role, icon, sort_order) VALUES (?, ?, ?, ?, 'layers', ?)";
+        try (Connection con = DBContext.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, title.trim());
+            ps.setString(2, slug);
+            ps.setString(3, summary == null ? "" : summary.trim());
+            ps.setString(4, targetRole == null ? "" : targetRole.trim());
+            ps.setInt(5, Math.max(1, sortOrder));
+            ps.executeUpdate();
+            try (ResultSet keys = ps.getGeneratedKeys()) {
+                if (keys.next()) return keys.getInt(1);
+            }
+        }
+        return 0;
+    }
+
+    public void updatePath(int id, String title, String summary, String targetRole, int sortOrder) throws SQLException {
+        String slug = FormatUtil.slugify(title);
+        String sql = "UPDATE learning_paths SET title = ?, slug = ?, summary = ?, target_role = ?, sort_order = ? WHERE id = ?";
+        try (Connection con = DBContext.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, title.trim());
+            ps.setString(2, slug);
+            ps.setString(3, summary == null ? "" : summary.trim());
+            ps.setString(4, targetRole == null ? "" : targetRole.trim());
+            ps.setInt(5, Math.max(1, sortOrder));
+            ps.setInt(6, id);
+            ps.executeUpdate();
+        }
+    }
+
+    public void deletePath(int id) throws SQLException {
+        try (Connection con = DBContext.getConnection();
+             PreparedStatement ps = con.prepareStatement("DELETE FROM learning_paths WHERE id = ?")) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        }
+    }
+
+    public void replacePathCourses(int pathId, List<Integer> courseIds) throws SQLException {
+        try (Connection con = DBContext.getConnection()) {
+            con.setAutoCommit(false);
+            try {
+                try (PreparedStatement ps = con.prepareStatement("DELETE FROM learning_path_courses WHERE path_id = ?")) {
+                    ps.setInt(1, pathId);
+                    ps.executeUpdate();
+                }
+                if (courseIds != null && !courseIds.isEmpty()) {
+                    String ins = "INSERT IGNORE INTO learning_path_courses (path_id, course_id, step_order) VALUES (?, ?, ?)";
+                    try (PreparedStatement ps = con.prepareStatement(ins)) {
+                        int step = 1;
+                        for (Integer cid : courseIds) {
+                            if (cid == null || cid <= 0) continue;
+                            ps.setInt(1, pathId);
+                            ps.setInt(2, cid);
+                            ps.setInt(3, step++);
+                            ps.addBatch();
+                        }
+                        ps.executeBatch();
+                    }
+                }
+                con.commit();
+            } catch (SQLException ex) {
+                con.rollback();
+                throw ex;
+            }
+        }
     }
 }

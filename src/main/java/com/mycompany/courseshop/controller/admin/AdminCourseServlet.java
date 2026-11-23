@@ -41,10 +41,12 @@ public class AdminCourseServlet extends HttpServlet {
                 req.setAttribute("editCourse", courseDAO.findById(Integer.parseInt(editId)));
             } catch (NumberFormatException ignored) {}
         }
-        req.setAttribute("courses", courseDAO.findAllForAdmin());
+        String q = req.getParameter("q");
+        req.setAttribute("q", q == null ? "" : q.trim());
+        req.setAttribute("courses", courseDAO.findAllForAdmin(q));
         req.setAttribute("categories", categoryDAO.findAllWithCounts());
         req.setAttribute("adminNav", "courses");
-        req.setAttribute("pageTitle", "Quản lý Khóa học — Admin CourseShop");
+        req.setAttribute("pageTitle", "Quản lý Khóa học — Quản trị CourseShop");
         req.getRequestDispatcher("/views/admin/courses.jsp").forward(req, resp);
     }
 

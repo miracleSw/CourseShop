@@ -87,6 +87,11 @@
                                 <i data-lucide="book-open" class="w-4 h-4 text-blueprint"></i>
                                 Khóa học của tôi
                             </a>
+                            <a href="${pageContext.request.contextPath}/profile"
+                               class="flex items-center gap-2.5 px-3.5 py-2 text-[13px] font-semibold text-ink hover:bg-paper-soft">
+                                <i data-lucide="user-round" class="w-4 h-4 text-ink-muted"></i>
+                                Hồ sơ cá nhân
+                            </a>
                             <c:if test="${sessionScope.user.admin}">
                                 <a href="${pageContext.request.contextPath}/admin/dashboard"
                                    class="flex items-center gap-2.5 px-3.5 py-2 text-[13px] font-semibold text-amber-pro hover:bg-amber-soft/50">
@@ -140,7 +145,8 @@
             <a href="${pageContext.request.contextPath}/home?type=free#catalog" class="px-3 py-2 rounded border border-rule bg-sheet text-blueprint">Khóa Miễn phí</a>
             <a href="${pageContext.request.contextPath}/home?type=pro#catalog" class="px-3 py-2 rounded border border-rule bg-sheet text-amber-pro">Khóa Pro</a>
             <c:if test="${not empty sessionScope.user}">
-                <a href="${pageContext.request.contextPath}/my-courses" class="px-3 py-2 rounded border border-rule bg-sheet col-span-2">Khóa học của tôi</a>
+                <a href="${pageContext.request.contextPath}/my-courses" class="px-3 py-2 rounded border border-rule bg-sheet">Khóa học của tôi</a>
+                <a href="${pageContext.request.contextPath}/profile" class="px-3 py-2 rounded border border-rule bg-sheet">Hồ sơ cá nhân</a>
             </c:if>
         </div>
     </div>

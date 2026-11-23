@@ -13,8 +13,8 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter(filterName = "AuthFilter", urlPatterns = {
-    "/checkout", "/payment/*", "/my-courses", "/learn", "/review", "/enroll-free",
-    "/api/progress", "/api/notes"
+    "/checkout", "/payment/*", "/my-courses", "/learn", "/review", "/enroll-free", "/profile",
+    "/api/progress", "/api/notes", "/api/wishlist", "/api/quiz", "/api/practice", "/api/discussions"
 })
 public class AuthFilter implements Filter {
 

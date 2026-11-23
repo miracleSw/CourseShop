@@ -5,13 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<c:out value='${sessionScope.csrfToken}'/>">
     <title><c:out value="${not empty pageTitle ? pageTitle : 'CourseShop — Khóa học Lập trình Thực chiến'}"/></title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css?v=5">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css?v=6">
     <script src="${pageContext.request.contextPath}/assets/js/vendor/lucide.min.js" defer></script>
-    <script src="${pageContext.request.contextPath}/assets/js/app.js?v=3" defer></script>
-    <script src="${pageContext.request.contextPath}/assets/js/chat-widget.js?v=3" defer></script>
+    <script src="${pageContext.request.contextPath}/assets/js/app.js?v=4" defer></script>
+    <script src="${pageContext.request.contextPath}/assets/js/chat-widget.js?v=4" defer></script>
     <c:if test="${includeLearnJs}">
-        <script src="${pageContext.request.contextPath}/assets/js/learn.js?v=1" defer></script>
+        <script src="${pageContext.request.contextPath}/assets/js/learn.js?v=2" defer></script>
     </c:if>
     <c:if test="${includeChartJs}">
         <script src="${pageContext.request.contextPath}/assets/js/vendor/chart.umd.min.js" defer></script>

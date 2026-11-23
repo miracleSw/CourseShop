@@ -82,4 +82,12 @@ public class AppConfig {
     public static String getSupabaseBucket() {
         return resolve("SUPABASE_BUCKET", "supabase.bucket", "courseshop");
     }
+
+    public static String getResendApiKey() {
+        return resolve("RESEND_API_KEY", "mail.resendApiKey", "");
+    }
+
+    public static String getMailFrom() {
+        return resolve("MAIL_FROM", "mail.from", "");
+    }
 }

@@ -309,6 +309,10 @@ public class OrderDAO {
     }
 
     public List<Order> findAll(String statusFilter) {
+        return findAllFiltered(statusFilter, null, null, null);
+    }
+
+    public List<Order> findAllFiltered(String statusFilter, String q, String fromDate, String toDate) {
         List<Order> list = new ArrayList<>();
         StringBuilder sql = new StringBuilder("""
             SELECT o.*, u.full_name AS user_name, u.email AS user_email,
@@ -316,15 +320,33 @@ public class OrderDAO {
             FROM orders o
             JOIN users u ON u.id = o.user_id
             LEFT JOIN coupons cp ON cp.id = o.coupon_id
+            WHERE 1=1
             """);
+        List<Object> params = new ArrayList<>();
         if (statusFilter != null && !statusFilter.isBlank()) {
-            sql.append(" WHERE o.status = ? ");
+            sql.append(" AND o.status = ? ");
+            params.add(statusFilter.trim().toUpperCase());
+        }
+        if (q != null && !q.isBlank()) {
+            sql.append(" AND (o.order_code LIKE ? OR u.full_name LIKE ? OR u.email LIKE ?) ");
+            String like = "%" + q.trim() + "%";
+            params.add(like);
+            params.add(like);
+            params.add(like);
+        }
+        if (fromDate != null && !fromDate.isBlank()) {
+            sql.append(" AND DATE(COALESCE(o.paid_at, o.created_at)) >= ? ");
+            params.add(fromDate.trim());
+        }
+        if (toDate != null && !toDate.isBlank()) {
+            sql.append(" AND DATE(COALESCE(o.paid_at, o.created_at)) <= ? ");
+            params.add(toDate.trim());
         }
         sql.append(" ORDER BY o.created_at DESC ");
         try (Connection con = DBContext.getConnection();
              PreparedStatement ps = con.prepareStatement(sql.toString())) {
-            if (statusFilter != null && !statusFilter.isBlank()) {
-                ps.setString(1, statusFilter.trim().toUpperCase());
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
             }
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -370,6 +392,10 @@ public class OrderDAO {
     }
 
     public Map<String, Object> getDashboardStats() {
+        return getDashboardStats(null, null);
+    }
+
+    public Map<String, Object> getDashboardStats(String fromDate, String toDate) {
         Map<String, Object> stats = new LinkedHashMap<>();
         stats.put("totalRevenue", BigDecimal.ZERO);
         stats.put("paidOrders", 0);
@@ -378,13 +404,22 @@ public class OrderDAO {
         stats.put("totalCourses", 0);
         stats.put("totalEnrollments", 0);
 
+        boolean hasFrom = fromDate != null && !fromDate.isBlank();
+        boolean hasTo = toDate != null && !toDate.isBlank();
+
         try (Connection con = DBContext.getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement(
-                    "SELECT COALESCE(SUM(total_amount),0), COUNT(*) FROM orders WHERE status = 'PAID'");
-                 ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    stats.put("totalRevenue", rs.getBigDecimal(1));
-                    stats.put("paidOrders", rs.getInt(2));
+            StringBuilder revSql = new StringBuilder("SELECT COALESCE(SUM(total_amount),0), COUNT(*) FROM orders WHERE status = 'PAID'");
+            if (hasFrom) revSql.append(" AND DATE(COALESCE(paid_at, created_at)) >= ?");
+            if (hasTo) revSql.append(" AND DATE(COALESCE(paid_at, created_at)) <= ?");
+            try (PreparedStatement ps = con.prepareStatement(revSql.toString())) {
+                int idx = 1;
+                if (hasFrom) ps.setString(idx++, fromDate.trim());
+                if (hasTo) ps.setString(idx++, toDate.trim());
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        stats.put("totalRevenue", rs.getBigDecimal(1));
+                        stats.put("paidOrders", rs.getInt(2));
+                    }
                 }
             }
             try (PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM orders WHERE status = 'PENDING'");
@@ -404,21 +439,29 @@ public class OrderDAO {
                 if (rs.next()) stats.put("totalEnrollments", rs.getInt(1));
             }
 
-            // Revenue grouped by date (last 7 paid days)
+            // Revenue grouped by date
             Map<String, Long> chartData = new LinkedHashMap<>();
-            String sqlChart = """
+            StringBuilder sqlChart = new StringBuilder("""
                 SELECT DATE_FORMAT(COALESCE(paid_at, created_at), '%d/%m') AS d,
                        COALESCE(SUM(total_amount), 0) AS rev
                 FROM orders
                 WHERE status = 'PAID'
+                """);
+            if (hasFrom) sqlChart.append(" AND DATE(COALESCE(paid_at, created_at)) >= ? ");
+            if (hasTo) sqlChart.append(" AND DATE(COALESCE(paid_at, created_at)) <= ? ");
+            sqlChart.append("""
                 GROUP BY DATE(COALESCE(paid_at, created_at)), d
                 ORDER BY DATE(COALESCE(paid_at, created_at)) ASC
-                LIMIT 10
-                """;
-            try (PreparedStatement ps = con.prepareStatement(sqlChart);
-                 ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    chartData.put(rs.getString("d"), rs.getLong("rev"));
+                LIMIT 31
+                """);
+            try (PreparedStatement ps = con.prepareStatement(sqlChart.toString())) {
+                int idx = 1;
+                if (hasFrom) ps.setString(idx++, fromDate.trim());
+                if (hasTo) ps.setString(idx++, toDate.trim());
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        chartData.put(rs.getString("d"), rs.getLong("rev"));
+                    }
                 }
             }
             stats.put("revenueSeries", chartData);

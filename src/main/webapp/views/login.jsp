@@ -25,7 +25,10 @@
                            class="lab-input">
                 </div>
                 <div>
-                    <label for="password" class="block text-[13.5px] font-bold text-ink mb-1.5">Mật khẩu</label>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label for="password" class="block text-[13.5px] font-bold text-ink">Mật khẩu</label>
+                        <a href="${pageContext.request.contextPath}/forgot-password" class="text-[12.5px] font-bold text-blueprint hover:underline">Quên mật khẩu?</a>
+                    </div>
                     <input id="password" type="password" name="password" required
                            placeholder="Nhập mật khẩu"
                            class="lab-input">

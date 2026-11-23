@@ -11,6 +11,8 @@ public class Enrollment {
     private Course course;
     private int completedLessons;
     private int totalLessons;
+    private Integer lastLessonId;
+    private String certificateCode;
 
     public Enrollment() {}
 
@@ -37,6 +39,12 @@ public class Enrollment {
 
     public int getTotalLessons() { return totalLessons; }
     public void setTotalLessons(int totalLessons) { this.totalLessons = totalLessons; }
+
+    public Integer getLastLessonId() { return lastLessonId; }
+    public void setLastLessonId(Integer lastLessonId) { this.lastLessonId = lastLessonId; }
+
+    public String getCertificateCode() { return certificateCode; }
+    public void setCertificateCode(String certificateCode) { this.certificateCode = certificateCode; }
 
     public int getProgressPercent() {
         if (totalLessons <= 0) return 0;

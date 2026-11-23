@@ -241,18 +241,30 @@ window.__TRACK_MAP__ = [
                             <div class="h-2 ${c.pro ? 'bg-amber-bar' : 'bg-blueprint'}"></div>
 
                             <!-- Compact Technical Cover -->
-                            <a href="${pageContext.request.contextPath}/course?slug=${c.slug}"
-                               class="block relative aspect-[2/1] bg-ink overflow-hidden border-b border-rule">
-                                <img src="${c.externalThumbnail ? '' : pageContext.request.contextPath}${c.externalThumbnail ? '' : '/'}${c.thumbnail}"
-                                     alt="<c:out value='${c.title}'/>"
-                                     loading="lazy"
-                                     class="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.03]">
+                            <div class="relative aspect-[2/1] bg-ink overflow-hidden border-b border-rule">
+                                <a href="${pageContext.request.contextPath}/course?slug=${c.slug}" class="block w-full h-full">
+                                    <img src="${c.externalThumbnail ? '' : pageContext.request.contextPath}${c.externalThumbnail ? '' : '/'}${c.thumbnail}"
+                                         alt="<c:out value='${c.title}'/>"
+                                         loading="lazy"
+                                         class="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.03]">
+                                </a>
                                 <c:if test="${c.hasDiscount}">
-                                    <span class="absolute top-2 right-2 font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-amber-pro text-white tabular-nums">
+                                    <span class="absolute top-2 right-2 font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-amber-pro text-white tabular-nums pointer-events-none">
                                         -${c.discountPercent}%
                                     </span>
                                 </c:if>
-                            </a>
+                                <c:if test="${c.pro && !ownedIds.contains(c.id)}">
+                                    <c:set var="isWished" value="${wishlistIds.contains(c.id)}"/>
+                                    <button type="button"
+                                            onclick="toggleWishlistAsync(${c.id}, this)"
+                                            data-saved="${isWished}"
+                                            title="Lưu vào danh sách yêu thích"
+                                            aria-label="Lưu vào danh sách yêu thích"
+                                            class="absolute top-2 left-2 w-8 h-8 rounded-full bg-sheet/95 border border-ink/80 grid place-items-center text-ink hover:scale-105 transition-transform shadow-sm cursor-pointer">
+                                        <i data-lucide="heart" class="w-4 h-4 ${isWished ? 'fill-danger text-danger' : ''}"></i>
+                                    </button>
+                                </c:if>
+                            </div>
 
                             <!-- Card Body -->
                             <div class="p-3.5 flex-1 flex flex-col">

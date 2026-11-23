@@ -98,7 +98,10 @@ document.addEventListener('alpine:init', () => {
       try {
         const res = await fetch(this.contextPath + '/api/chat', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'X-CSRF-Token': window.getCsrfToken ? window.getCsrfToken() : ''
+          },
           body: JSON.stringify({
             message: text,
             courseId: this.courseId,
@@ -149,7 +152,10 @@ document.addEventListener('alpine:init', () => {
       if (this.loading) return;
       try {
         const qs = this.courseId ? ('?courseId=' + encodeURIComponent(this.courseId)) : '';
-        await fetch(this.contextPath + '/api/chat' + qs, { method: 'DELETE' });
+        await fetch(this.contextPath + '/api/chat' + qs, {
+          method: 'DELETE',
+          headers: { 'X-CSRF-Token': window.getCsrfToken ? window.getCsrfToken() : '' }
+        });
       } catch (e) {}
       this.lastFailedText = '';
       this.messages = [this.greeting];

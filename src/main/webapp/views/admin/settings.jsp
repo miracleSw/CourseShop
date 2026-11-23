@@ -185,15 +185,30 @@
                     <label class="block text-[13px] font-bold mb-1">Giới thiệu chân trang</label>
                     <textarea name="siteTagline" rows="2" class="lab-input text-[13.5px]"><c:out value="${siteSettings['site.tagline']}"/></textarea>
                 </div>
-                <div class="md:col-span-4">
-                    <label class="block text-[13px] font-bold mb-1">Tên ngân hàng nhận chuyển khoản</label>
+                <div class="md:col-span-3">
+                    <label class="block text-[13px] font-bold mb-1">Ngân hàng (mã VietQR)</label>
+                    <select name="bankBin" class="lab-input text-[13px]">
+                        <option value="970415" ${bankBin == '970415' ? 'selected' : ''}>VietinBank (970415)</option>
+                        <option value="970436" ${bankBin == '970436' ? 'selected' : ''}>Vietcombank (970436)</option>
+                        <option value="970418" ${bankBin == '970418' ? 'selected' : ''}>BIDV (970418)</option>
+                        <option value="970405" ${bankBin == '970405' ? 'selected' : ''}>Agribank (970405)</option>
+                        <option value="970407" ${bankBin == '970407' ? 'selected' : ''}>Techcombank (970407)</option>
+                        <option value="970422" ${bankBin == '970422' ? 'selected' : ''}>MB Bank (970422)</option>
+                        <option value="970416" ${bankBin == '970416' ? 'selected' : ''}>ACB (970416)</option>
+                        <option value="970432" ${bankBin == '970432' ? 'selected' : ''}>VPBank (970432)</option>
+                        <option value="970423" ${bankBin == '970423' ? 'selected' : ''}>TPBank (970423)</option>
+                        <option value="970403" ${bankBin == '970403' ? 'selected' : ''}>Sacombank (970403)</option>
+                    </select>
+                </div>
+                <div class="md:col-span-3">
+                    <label class="block text-[13px] font-bold mb-1">Tên chi nhánh hiển thị</label>
                     <input type="text" name="bankName" value="<c:out value='${siteSettings["bank.name"]}'/>" class="lab-input text-[13.5px]">
                 </div>
-                <div class="md:col-span-4">
+                <div class="md:col-span-3">
                     <label class="block text-[13px] font-bold mb-1">Số tài khoản</label>
                     <input type="text" name="bankAccountNumber" value="<c:out value='${siteSettings["bank.account_number"]}'/>" class="lab-input font-mono text-[13.5px]">
                 </div>
-                <div class="md:col-span-4">
+                <div class="md:col-span-3">
                     <label class="block text-[13px] font-bold mb-1">Chủ tài khoản</label>
                     <input type="text" name="bankAccountHolder" value="<c:out value='${siteSettings["bank.account_holder"]}'/>" class="lab-input font-mono text-[13.5px]">
                 </div>
@@ -201,6 +216,65 @@
                     <button type="submit" name="action" value="saveSite" class="btn-ink px-5 py-2.5 text-[13.5px]">
                         <i data-lucide="save" class="w-4 h-4"></i>
                         <span>Lưu thông tin Website &amp; Ngân hàng</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Automated Email Service (Resend) -->
+    <section class="binder-sheet rounded-xl overflow-hidden">
+        <div class="h-2 bg-emerald-ok"></div>
+        <div class="p-6 sm:p-7 space-y-5">
+            <div class="flex items-start justify-between gap-3">
+                <div>
+                    <h2 class="text-[19px] font-extrabold text-ink">Dịch vụ Email tự động</h2>
+                    <p class="text-[13px] text-ink-muted mt-0.5">Gửi liên kết đặt lại mật khẩu và email hóa đơn xác nhận mở khóa học tự động.</p>
+                </div>
+                <span class="shrink-0 font-mono text-[11px] font-bold px-2.5 py-1 rounded ${hasResendKey ? 'bg-emerald-soft text-emerald-ok' : 'bg-danger-soft text-danger'}">
+                    ${hasResendKey ? (resendFromEnv ? 'SẴN SÀNG · MÁY CHỦ' : 'SẴN SÀNG') : 'CHƯA KÍCH HOẠT'}
+                </span>
+            </div>
+
+            <form action="${pageContext.request.contextPath}/admin/settings" method="post" class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+                <div class="md:col-span-4">
+                    <label for="mailFrom" class="block text-[13px] font-bold mb-1.5">Địa chỉ gửi đi</label>
+                    <input id="mailFrom" type="text" name="mailFrom" value="<c:out value='${mailFrom}'/>"
+                           placeholder="CourseShop <onboarding@resend.dev>" class="lab-input font-mono text-[13px]">
+                </div>
+                <div class="md:col-span-4">
+                    <label for="resendApiKey" class="block text-[13px] font-bold mb-1.5">
+                        Khóa kết nối gửi thư (Resend)
+                        <c:if test="${hasResendKey}">
+                            <span class="ml-1.5 font-mono text-[11px] font-semibold text-emerald-ok">${resendKeyMasked}</span>
+                        </c:if>
+                    </label>
+                    <input id="resendApiKey" type="password" name="resendApiKey" autocomplete="off"
+                           ${resendFromEnv ? 'disabled' : ''}
+                           placeholder="${resendFromEnv ? 'Đã cấu hình an toàn trên máy chủ' : (hasResendKey ? 'Để trống nếu giữ nguyên khóa' : 'Nhập khóa Resend (re_...)')}"
+                           class="lab-input font-mono text-[13px] disabled:bg-paper disabled:opacity-70">
+                </div>
+                <div class="md:col-span-4">
+                    <label for="testEmail" class="block text-[13px] font-bold mb-1.5">Email nhận thử nghiệm</label>
+                    <input id="testEmail" type="email" name="testEmail" value="<c:out value='${sessionScope.user.email}'/>"
+                           placeholder="ban@example.com" class="lab-input font-mono text-[13px]">
+                </div>
+                <c:if test="${hasResendKey && !resendFromEnv}">
+                    <div class="md:col-span-12">
+                        <label class="inline-flex items-center gap-2 text-[12.5px] font-semibold text-danger">
+                            <input type="checkbox" name="clearResendKey" value="1" class="accent-danger">
+                            <span>Gỡ khóa email đã lưu</span>
+                        </label>
+                    </div>
+                </c:if>
+                <div class="md:col-span-12 flex flex-wrap gap-2.5 pt-1">
+                    <button type="submit" name="action" value="saveMail" class="btn-blueprint px-4 py-2.5 text-[13.5px]">
+                        <i data-lucide="save" class="w-4 h-4"></i>
+                        <span>Lưu cấu hình Email</span>
+                    </button>
+                    <button type="submit" name="action" value="testMail" class="btn-outline-ink px-4 py-2.5 text-[13.5px]">
+                        <i data-lucide="send" class="w-4 h-4 text-emerald-ok"></i>
+                        <span>Gửi email kiểm tra</span>
                     </button>
                 </div>
             </form>

@@ -35,7 +35,7 @@
                     <li><a href="${pageContext.request.contextPath}/home?type=free#catalog" class="hover:text-ink hover:underline">Khóa Miễn phí</a></li>
                     <li><a href="${pageContext.request.contextPath}/home?type=pro#catalog" class="hover:text-ink hover:underline">Khóa học Pro</a></li>
                     <li><a href="${pageContext.request.contextPath}/my-courses" class="hover:text-ink hover:underline">Khóa học của tôi</a></li>
-                    <li><a href="${pageContext.request.contextPath}/cart" class="hover:text-ink hover:underline">Giỏ hàng</a></li>
+                    <li><a href="${pageContext.request.contextPath}/certificate" class="hover:text-ink hover:underline">Tra cứu chứng chỉ</a></li>
                 </ul>
             </div>
 

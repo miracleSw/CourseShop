@@ -12,17 +12,35 @@
             <h1 class="text-[26px] sm:text-[32px] font-extrabold tracking-tight text-ink">Tổng quan vận hành</h1>
             <p class="text-[14px] text-ink-muted mt-1">Theo dõi doanh thu, đơn hàng chờ duyệt và hiệu suất khóa học theo thời gian thực.</p>
         </div>
-        <div class="flex gap-2.5">
+        <div class="flex flex-wrap gap-2.5">
+            <a href="${pageContext.request.contextPath}/admin/dashboard?export=csv<c:if test='${not empty fromDate}'>&from=${fromDate}</c:if><c:if test='${not empty toDate}'>&to=${toDate}</c:if>"
+               class="btn-outline-ink px-4 py-2 text-[13.5px]">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                <span>Xuất báo cáo CSV</span>
+            </a>
             <a href="${pageContext.request.contextPath}/admin/courses" class="btn-blueprint px-4 py-2 text-[13.5px]">
                 <i data-lucide="plus" class="w-4 h-4"></i>
                 <span>Thêm khóa học</span>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/settings" class="btn-outline-ink px-4 py-2 text-[13.5px]">
-                <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
-                <span>Cài đặt</span>
-            </a>
         </div>
     </div>
+
+    <!-- Date Range Filter -->
+    <form action="${pageContext.request.contextPath}/admin/dashboard" method="get"
+          class="binder-sheet rounded-xl p-4 flex flex-wrap items-end gap-3">
+        <div>
+            <label for="fromDate" class="block text-[12px] font-bold text-ink-muted mb-1">Từ ngày</label>
+            <input id="fromDate" type="date" name="from" value="<c:out value='${fromDate}'/>" class="lab-input h-9 text-[13px] font-mono w-40">
+        </div>
+        <div>
+            <label for="toDate" class="block text-[12px] font-bold text-ink-muted mb-1">Đến ngày</label>
+            <input id="toDate" type="date" name="to" value="<c:out value='${toDate}'/>" class="lab-input h-9 text-[13px] font-mono w-40">
+        </div>
+        <button type="submit" class="btn-ink h-9 px-4 text-[13px]">Áp dụng lọc</button>
+        <c:if test="${not empty fromDate || not empty toDate}">
+            <a href="${pageContext.request.contextPath}/admin/dashboard" class="btn-outline-ink h-9 px-3.5 text-[13px]">Xem tất cả</a>
+        </c:if>
+    </form>
 
     <!-- KPI Strip -->
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">

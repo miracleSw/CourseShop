@@ -79,4 +79,67 @@ public class ReviewDAO {
             ps.executeUpdate();
         }
     }
+
+    public List<Review> findAllForAdmin(Integer courseId, Integer rating, String q) {
+        List<Review> list = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("""
+            SELECT r.*, u.full_name AS user_name, u.email AS user_email,
+                   co.code AS course_code, co.title AS course_title
+            FROM reviews r
+            JOIN users u ON u.id = r.user_id
+            JOIN courses co ON co.id = r.course_id
+            WHERE 1=1
+            """);
+        List<Object> params = new ArrayList<>();
+        if (courseId != null && courseId > 0) {
+            sql.append(" AND r.course_id = ? ");
+            params.add(courseId);
+        }
+        if (rating != null && rating >= 1 && rating <= 5) {
+            sql.append(" AND r.rating = ? ");
+            params.add(rating);
+        }
+        if (q != null && !q.isBlank()) {
+            sql.append(" AND (u.full_name LIKE ? OR u.email LIKE ? OR co.title LIKE ? OR r.comment LIKE ?) ");
+            String like = "%" + q.trim() + "%";
+            params.add(like);
+            params.add(like);
+            params.add(like);
+            params.add(like);
+        }
+        sql.append(" ORDER BY r.created_at DESC ");
+        try (Connection con = DBContext.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql.toString())) {
+            for (int i = 0; i < params.size(); i++) {
+                ps.setObject(i + 1, params.get(i));
+            }
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Review r = new Review();
+                    r.setId(rs.getInt("id"));
+                    r.setUserId(rs.getInt("user_id"));
+                    r.setUserName(rs.getString("user_name"));
+                    r.setUserEmail(rs.getString("user_email"));
+                    r.setCourseId(rs.getInt("course_id"));
+                    r.setCourseCode(rs.getString("course_code"));
+                    r.setCourseTitle(rs.getString("course_title"));
+                    r.setRating(rs.getInt("rating"));
+                    r.setComment(rs.getString("comment"));
+                    r.setCreatedAt(rs.getTimestamp("created_at"));
+                    list.add(r);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public void delete(int reviewId) throws SQLException {
+        try (Connection con = DBContext.getConnection();
+             PreparedStatement ps = con.prepareStatement("DELETE FROM reviews WHERE id = ?")) {
+            ps.setInt(1, reviewId);
+            ps.executeUpdate();
+        }
+    }
 }

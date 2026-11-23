@@ -23,7 +23,7 @@
         <h2 class="text-[18px] font-extrabold text-ink mb-5">
             ${not empty editCourse ? 'Chỉnh sửa khóa học: '.concat(editCourse.code) : 'Thêm khóa học mới'}
         </h2>
-        <form action="${pageContext.request.contextPath}/admin/courses" method="post" enctype="multipart/form-data"
+        <form action="${pageContext.request.contextPath}/admin/courses?_csrf=${sessionScope.csrfToken}" method="post" enctype="multipart/form-data"
               class="grid grid-cols-1 md:grid-cols-12 gap-4">
             <input type="hidden" name="id" value="${not empty editCourse ? editCourse.id : 0}">
 
@@ -136,6 +136,17 @@
 
     <!-- Courses Table -->
     <section class="binder-sheet rounded-xl overflow-hidden">
+        <div class="px-5 py-3.5 bg-paper-soft border-b border-rule flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <h2 class="text-[15.5px] font-extrabold text-ink">Danh sách khóa học (${courses.size()})</h2>
+            <form action="${pageContext.request.contextPath}/admin/courses" method="get" class="flex gap-2 sm:w-80">
+                <input type="search" name="q" value="<c:out value='${q}'/>" placeholder="Tìm mã, tên khóa, giảng viên..."
+                       class="lab-input h-9 text-[13px]">
+                <button type="submit" class="btn-ink h-9 px-3.5 text-[12.5px] shrink-0">Tìm</button>
+                <c:if test="${not empty q}">
+                    <a href="${pageContext.request.contextPath}/admin/courses" class="btn-outline-ink h-9 px-3 text-[12.5px] shrink-0">Xóa</a>
+                </c:if>
+            </form>
+        </div>
         <div class="overflow-x-auto">
             <table class="w-full text-left text-[13.5px] border-collapse">
                 <thead>

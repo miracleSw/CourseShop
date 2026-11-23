@@ -309,6 +309,13 @@
                                         </button>
                                     </c:otherwise>
                                 </c:choose>
+
+                                <button type="button" onclick="toggleWishlistAsync(${course.id}, this)"
+                                        data-saved="${wishlisted}"
+                                        class="w-full py-2 text-[13px] font-bold text-ink-muted hover:text-ink inline-flex items-center justify-center gap-1.5 rounded-md border border-rule bg-paper-soft hover:border-ink transition-colors">
+                                    <i data-lucide="heart" class="w-4 h-4 ${wishlisted ? 'fill-danger text-danger' : ''}"></i>
+                                    <span data-wishlist-label>${wishlisted ? 'Đã lưu yêu thích' : 'Lưu vào yêu thích'}</span>
+                                </button>
                             </c:otherwise>
                         </c:choose>
                     </div>

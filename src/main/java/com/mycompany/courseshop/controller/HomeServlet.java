@@ -4,6 +4,7 @@ import com.mycompany.courseshop.dao.CategoryDAO;
 import com.mycompany.courseshop.dao.CourseDAO;
 import com.mycompany.courseshop.dao.EnrollmentDAO;
 import com.mycompany.courseshop.dao.LearningPathDAO;
+import com.mycompany.courseshop.dao.WishlistDAO;
 import com.mycompany.courseshop.model.Course;
 import com.mycompany.courseshop.model.User;
 import jakarta.servlet.ServletException;
@@ -24,6 +25,7 @@ public class HomeServlet extends HttpServlet {
     private final CourseDAO courseDAO = new CourseDAO();
     private final LearningPathDAO pathDAO = new LearningPathDAO();
     private final EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
+    private final WishlistDAO wishlistDAO = new WishlistDAO();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -60,6 +62,9 @@ public class HomeServlet extends HttpServlet {
         Set<Integer> ownedIds = (user != null)
                 ? enrollmentDAO.getEnrolledCourseIds(user.getId())
                 : Collections.emptySet();
+        Set<Integer> wishlistIds = (user != null)
+                ? wishlistDAO.getWishlistCourseIds(user.getId())
+                : Collections.emptySet();
 
         boolean hasActiveFilter = (keyword != null && !keyword.isBlank())
                 || (categoryId != null && categoryId > 0)
@@ -70,6 +75,7 @@ public class HomeServlet extends HttpServlet {
         req.setAttribute("learningPaths", pathDAO.findAllWithCourses());
         req.setAttribute("courses", courses);
         req.setAttribute("ownedIds", ownedIds);
+        req.setAttribute("wishlistIds", wishlistIds);
         req.setAttribute("totalCourses", totalCourses);
         req.setAttribute("currentPage", page);
         req.setAttribute("totalPages", totalPages);

@@ -3,6 +3,8 @@ package com.mycompany.courseshop.controller.admin;
 import com.mycompany.courseshop.dao.OrderDAO;
 import com.mycompany.courseshop.dao.PaymentTransactionDAO;
 import com.mycompany.courseshop.model.Order;
+import com.mycompany.courseshop.service.EmailService;
+import com.mycompany.courseshop.utils.CsrfUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,14 +18,17 @@ public class AdminOrderServlet extends HttpServlet {
 
     private final OrderDAO orderDAO = new OrderDAO();
     private final PaymentTransactionDAO txDAO = new PaymentTransactionDAO();
+    private final EmailService emailService = new EmailService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String status = req.getParameter("status");
-        req.setAttribute("orders", orderDAO.findAll(status));
+        String q = req.getParameter("q");
+        req.setAttribute("orders", orderDAO.findAllFiltered(status, q, null, null));
         req.setAttribute("statusFilter", status == null ? "" : status);
+        req.setAttribute("q", q == null ? "" : q.trim());
         req.setAttribute("adminNav", "orders");
-        req.setAttribute("pageTitle", "Quản lý Đơn hàng — Admin CourseShop");
+        req.setAttribute("pageTitle", "Quản lý Đơn hàng — Quản trị CourseShop");
         req.getRequestDispatcher("/views/admin/orders.jsp").forward(req, resp);
     }
 
@@ -41,10 +46,14 @@ public class AdminOrderServlet extends HttpServlet {
         try {
             Order order = orderDAO.findById(orderId);
             if ("approve".equalsIgnoreCase(action)) {
+                boolean wasAlreadyPaid = order != null && "PAID".equalsIgnoreCase(order.getStatus());
                 orderDAO.markOrderPaidAndEnroll(orderId);
                 if (order != null) {
                     txDAO.log(orderId, order.getPaymentMethod(), order.getOrderCode(), order.getTotalAmount(),
                             "SUCCEEDED", "Quản trị viên xác nhận duyệt đơn & kích hoạt khóa học.");
+                    if (!wasAlreadyPaid) {
+                        emailService.sendOrderConfirmationAsync(orderDAO.findById(orderId), CsrfUtil.resolvePublicBaseUrl(req));
+                    }
                 }
                 req.getSession().setAttribute("flashSuccess", "Đã duyệt đơn hàng và tự động cấp quyền học cho học viên.");
             } else if ("cancel".equalsIgnoreCase(action)) {

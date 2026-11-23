@@ -29,6 +29,11 @@
             <i data-lucide="folder-kanban" class="w-4 h-4"></i>
             <span>Danh mục</span>
         </a>
+        <a href="${pageContext.request.contextPath}/admin/paths"
+           class="shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-md text-[13.5px] font-bold transition-colors ${adminNav == 'paths' ? 'bg-ink text-paper-soft' : 'text-ink-muted hover:bg-paper-tab hover:text-ink'}">
+            <i data-lucide="route" class="w-4 h-4"></i>
+            <span>Lộ trình học</span>
+        </a>
         <a href="${pageContext.request.contextPath}/admin/orders"
            class="shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-md text-[13.5px] font-bold transition-colors ${adminNav == 'orders' ? 'bg-ink text-paper-soft' : 'text-ink-muted hover:bg-paper-tab hover:text-ink'}">
             <i data-lucide="receipt" class="w-4 h-4"></i>
@@ -38,6 +43,11 @@
            class="shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-md text-[13.5px] font-bold transition-colors ${adminNav == 'coupons' ? 'bg-ink text-paper-soft' : 'text-ink-muted hover:bg-paper-tab hover:text-ink'}">
             <i data-lucide="tag" class="w-4 h-4"></i>
             <span>Mã giảm giá</span>
+        </a>
+        <a href="${pageContext.request.contextPath}/admin/reviews"
+           class="shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-md text-[13.5px] font-bold transition-colors ${adminNav == 'reviews' ? 'bg-ink text-paper-soft' : 'text-ink-muted hover:bg-paper-tab hover:text-ink'}">
+            <i data-lucide="message-square-quote" class="w-4 h-4"></i>
+            <span>Đánh giá</span>
         </a>
         <a href="${pageContext.request.contextPath}/admin/users"
            class="shrink-0 flex items-center gap-2.5 px-3 py-2.5 rounded-md text-[13.5px] font-bold transition-colors ${adminNav == 'users' ? 'bg-ink text-paper-soft' : 'text-ink-muted hover:bg-paper-tab hover:text-ink'}">
